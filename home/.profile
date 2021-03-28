@@ -71,7 +71,7 @@ planetarian::init() {
 pltr_init=planetarian::init
 
 function pltr() {
-  action="pltr_$1"
+  command=$(eval 'echo $pltr_'$1'')
   shift
-  ${!action} $@
+  $command $@
 }

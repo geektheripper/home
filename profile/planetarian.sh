@@ -26,7 +26,7 @@ planetarian::profile::reload() {
 planetarian::profile::reload
 
 planetarian::update() {
-  git -C "$PLANETARIAN_ROOT" pull && planetarian::profile::manual_reload
+  git -C "$PLANETARIAN_ROOT" pull && planetarian::profile::reload
 }
 
 pcmd reload planetarian::profile::reload

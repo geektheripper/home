@@ -11,10 +11,12 @@ planetarian::bashrc_block_probe() { grep "$1" <"$HOME/.bashrc"; } >/dev/null
 
 planetarian::bashrc_block_probe '# planetarian home' || {
   cat >>"$HOME"/.bashrc <<EOF
+
 # includes common profile
 if [ -f "$PLANETARIAN_HOME/planetarian.sh" ]; then
   . "$PLANETARIAN_HOME/planetarian.sh"
 fi
+
 EOF
 }
 

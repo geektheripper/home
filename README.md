@@ -12,6 +12,14 @@ pltr proxy autoload on
 pltr proxy autoload off
 ```
 
+## NodeJS
+
+```bash
+pltr node init
+pltr node install-node [version]
+pltr node install-yarn [version]
+```
+
 ## Init
 
 | key             | description                          |

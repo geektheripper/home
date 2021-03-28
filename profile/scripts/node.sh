@@ -2,10 +2,6 @@
 planetarian::safe_prepend "$(which yarn &>/dev/null && yarn global bin 2>/dev/null)"
 planetarian::safe_prepend "$(which npm &>/dev/null && npm bin -g 2>/dev/null)"
 
-planetarian::node::prepare() {
-  which gpg &>/dev/null || sudo apt-get install -y gpg
-}
-
 planetarian::node::gpg_import() {
   key=$1
 

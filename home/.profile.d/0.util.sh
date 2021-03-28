@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 planetarian::gpg_key::import() {
   key=$1
 

@@ -14,8 +14,8 @@ pltr proxy autoload off
 
 ## Init
 
-git
-
-> set git user email and defaultBranch
-
+| key             | description                          |
+| --------------- | ------------------------------------ |
+| `git`           | set git user email and defaultBranch |
+| `vscode-remote` | set zsh as default shell             |
 

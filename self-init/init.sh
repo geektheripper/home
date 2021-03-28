@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-# sudo apt-get update && sudo apt-get install -y crudini
+sudo apt-get update && sudo apt-get install -y \
+  crudini jq curl
 
 export PLANETARIAN_HOME="$HOME"/.planetarian/home
 

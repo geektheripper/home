@@ -18,6 +18,7 @@ planetarian::proxy::set-default() {
 
 planetarian::proxy::set() {
   proxy="$(planetarian::proxy::get-proxy $1)"
+  echo "set proxy to: $proxy"
   export all_proxy="$proxy"
   export http_proxy="$proxy"
   export https_proxy="$proxy"
@@ -48,7 +49,6 @@ planetarian::feature_switch proxy autoload && planetarian::proxy::set
 planetarian::proxy() {
   action=$1
   shift
-  echo $1
   planetarian::proxy::$action $@
 }
 

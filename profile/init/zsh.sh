@@ -17,7 +17,7 @@ else
   git clone --depth 1 https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 fi
 
-sudo usermod --shell /usr/bin/zsh $USER
+sudo usermod --shell /usr/bin/zsh "$(whoami)"
 
 if [ ! -f "$HOME/.zshrc" ]; then
   cat >"$HOME/.zshrc" <<'EOF'

@@ -11,3 +11,11 @@ pltr proxy unset
 pltr proxy autoload on
 pltr proxy autoload off
 ```
+
+## Init
+
+git
+
+> set git user email and defaultBranch
+
+

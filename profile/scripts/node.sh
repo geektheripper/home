@@ -34,8 +34,9 @@ planetarian::node::lstest_yarn() {
   curl -s https://classic.yarnpkg.com/en/docs/install | grep 'Classic Stable' | grep -Pom 1 "(\d+\.)+\d+"
 }
 
+# shellcheck disable=SC2120
 planetarian::node::install_node() {
-  NODE_VERSION=${1=$(planetarian::node::latest_node)}
+  NODE_VERSION=${1:-$(planetarian::node::latest_node)}
 
   ARCH=
   dpkgArch="$(dpkg --print-architecture)"
@@ -82,8 +83,9 @@ planetarian::node::install_node() {
   npm --version
 }
 
+# shellcheck disable=SC2120
 planetarian::node::install_yarn() {
-  YARN_VERSION=${1=$(planetarian::node::lstest_yarn)}
+  YARN_VERSION=${1:-$(planetarian::node::lstest_yarn)}
 
   planetarian::node::gpg_import 6A010C5166006599AA17F08146C2130DFD2497F5
 

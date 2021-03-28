@@ -3,19 +3,18 @@
 sudo apt-get update && sudo apt-get install -y \
   crudini jq curl
 
-export PLANETARIAN_HOME="$HOME"/.planetarian/home
+export PLANETARIAN_HOME="$HOME/.planetarian/profile"
 
-planetarian::bashrc_block_probe() {
-  cat "$HOME"/.bashrc | grep "$1"
-} > /dev/null
+planetarian::bashrc_block_probe() { grep "$1" <"$HOME/.bashrc"; } >/dev/null
 
 planetarian::bashrc_block_probe '# planetarian home' || {
-  cat >> "$HOME"/.bashrc <<EOF
-# planetarian home
-if [ -f "$PLANETARIAN_HOME/.profile" ]; then
-  . "$PLANETARIAN_HOME/.profile"
+  cat >>"$HOME"/.bashrc <<EOF
+# includes common profile
+if [ -f "$PLANETARIAN_HOME/planetarian.sh" ]; then
+  . "$PLANETARIAN_HOME/planetarian.sh"
 fi
 EOF
 }
 
-. "$PLANETARIAN_HOME/.profile"
+# shellcheck disable=SC1090
+. "$PLANETARIAN_HOME/planetarian.sh"

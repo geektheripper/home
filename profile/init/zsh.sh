@@ -41,8 +41,8 @@ EOF
 
   cat >>"$HOME/.zshrc" <<EOF
 # includes common profile
-if [ -f "$PLANETARIAN_HOME/.profile" ]; then
-  . "$PLANETARIAN_HOME/.profile"
+if [ -f "$PLANETARIAN_HOME/planetarian.sh" ]; then
+  . "$PLANETARIAN_HOME/planetarian.sh"
 fi
 EOF
 

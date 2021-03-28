@@ -1,4 +1,27 @@
 #!/usr/bin/env bash
+planetarian::node::gpg_import() {
+  key=$1
+
+  if [[ -z "$key" ]]; then
+    echo >&2 "no keys specified"
+    return 1
+  fi
+
+  if [[ ",$(planetarian::config get node gpg_keys)," = *",$key,"* ]]; then
+    echo >&2 "$key already imported, skip"
+    return 0
+  fi
+
+  gpg --batch --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" ||
+    gpg --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" ||
+    gpg --batch --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" || {
+    echo >&2 "import key failed: $key"
+    return 1
+  }
+
+  echo >&2 "import key: $key"
+  planetarian::config add node gpg_keys "$key"
+}
 
 planetarian::safe_prepend "$(which yarn &>/dev/null && yarn global bin 2>/dev/null)"
 planetarian::safe_prepend "$(which npm &>/dev/null && npm bin -g 2>/dev/null)"
@@ -41,7 +64,7 @@ planetarian::node::install_node() {
     DD8F2338BAE7501E3DD5AC78C273792F7D83545D \
     A48C2BEE680E841632CD4E44F07496B3EB3C1762 \
     B9E2F5981AA6E0CD28160D9FF13993A75599653C; do
-    planetarian::gpg_key::import "$key"
+    planetarian::node::gpg_import "$key"
   done
 
   pushd /tmp || return 1
@@ -60,19 +83,19 @@ planetarian::node::install_node() {
 }
 
 planetarian::node::install_yarn() {
-  NODE_VERSION=${1=$(planetarian::node::lstest_yarn)}
+  YARN_VERSION=${1=$(planetarian::node::lstest_yarn)}
 
-  planetarian::gpg_key::import 6A010C5166006599AA17F08146C2130DFD2497F5
+  planetarian::node::gpg_import 6A010C5166006599AA17F08146C2130DFD2497F5
 
   pushd /tmp || return 1
   curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz"
   curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz.asc"
-  gpg --batch --verify yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
+  gpg --batch --verify "yarn-v$YARN_VERSION.tar.gz.asc" "yarn-v$YARN_VERSION.tar.gz"
   mkdir -p /opt
-  sudo tar -xzf yarn-v$YARN_VERSION.tar.gz -C /opt/
-  sudo ln -sf /opt/yarn-v$YARN_VERSION/bin/yarn /usr/local/bin/yarn
-  sudo ln -sf /opt/yarn-v$YARN_VERSION/bin/yarnpkg /usr/local/bin/yarnpkg
-  rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
+  sudo tar -xzf "yarn-v$YARN_VERSION.tar.gz" -C /opt/
+  sudo ln -sf "/opt/yarn-v$YARN_VERSION/bin/yarn" /usr/local/bin/yarn
+  sudo ln -sf "/opt/yarn-v$YARN_VERSION/bin/yarnpkg" /usr/local/bin/yarnpkg
+  rm "yarn-v$YARN_VERSION.tar.gz.asc" "yarn-v$YARN_VERSION.tar.gz"
   popd || return 1
 
   # smoke test
@@ -98,6 +121,7 @@ planetarian::node::config_yarn() {
 planetarian::node::init() {
   planetarian::node::install_node
   planetarian::node::install_yarn
+  hash -r
   planetarian::node::config_node
   planetarian::node::config_yarn
 }

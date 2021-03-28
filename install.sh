@@ -2,4 +2,5 @@
 
 git clone git@github.com:geektheripper/planetarian.git "$HOME"/.planetarian
 
-. "$HOME"/.planetarian/self-init/init.sh
+# shellcheck disable=SC1090
+. "$HOME/.planetarian/self-init/init.sh"

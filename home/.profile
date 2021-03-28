@@ -44,8 +44,15 @@ pltr_update=planetarian::profile::update
 
 planetarian::config() {
   action=$1
+  conf_file="$PLANETARIAN_HOME"/.profile-config.ini
   shift
-  crudini --$action "$PLANETARIAN_HOME"/.profile-config.ini $@
+  if [[ "add" == "$action" ]]; then
+    crudini --set --list --list-sep ',' "$conf_file" $@
+  elif [[ "remove" == "$action" ]]; then
+    crudini --del --list --list-sep ',' "$conf_file" $@
+  else
+    crudini --$action "$conf_file" $@
+  fi
 }
 pltr_config=planetarian::config
 
@@ -54,8 +61,8 @@ planetarian::feature_switch() {
   switch=$2
   value=$3
   if [ -z "$value" ]; then
-    [ "on" == "$(planetarian::config get $scope $switch)" ]
-  elif [ "on" == "$value" ]; then
+    [[ "on" == "$(planetarian::config get $scope $switch)" ]]
+  elif [[ "on" == "$value" ]]; then
     planetarian::config set $scope $switch on
   else
     planetarian::config del $scope $switch

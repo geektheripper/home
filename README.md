@@ -1,6 +1,13 @@
 # Planetarian
 
-GeekTR's linux home directory.
+planetarian's linux shell environment
+
+## Install
+
+```bash
+# apt-get install -y curl git
+curl -fsSL https://raw.githubusercontent.com/geektheripper/planetarian/master/install.sh | bash
+```
 
 ## Config
 
@@ -44,9 +51,10 @@ i node install-yarn [version]
 
 `i init <item>`
 
-| key             | description                          |
-| --------------- | ------------------------------------ |
-| `git`           | set git user email and defaultBranch |
-| `vscode-remote` | set zsh as default shell             |
-| `zsh`           | install oh-my-zsh and pure theme     |
-| `shellcheck`    | install shellcheck                   |
+| key             | description                                      |
+| --------------- | ------------------------------------------------ |
+| `git`           | set git user email and defaultBranch             |
+| `vscode-remote` | set zsh as default shell                         |
+| `zsh`           | install oh-my-zsh and pure theme                 |
+| `shellcheck`    | install shellcheck                               |
+| `docker`        | install docker, docker-compose and aliyun mirror |

@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 sudo apt-get update && sudo apt-get install -y \
-  crudini jq curl
+  locales crudini jq curl
+
+sudo locale-gen en_US.UTF-8
 
 export PLANETARIAN_HOME="$HOME/.planetarian/profile"
 

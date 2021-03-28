@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+planetarian::safe_prepend "$(which yarn &>/dev/null && yarn global bin 2>/dev/null)"
+planetarian::safe_prepend "$(which npm &>/dev/null && npm bin -g 2>/dev/null)"
+
+planetarian::node::prepare() {
+  which gpg &>/dev/null || sudo apt-get install -y gpg
+}
+
 planetarian::node::gpg_import() {
   key=$1
 
@@ -22,9 +29,6 @@ planetarian::node::gpg_import() {
   echo >&2 "import key: $key"
   planetarian::config add node gpg_keys "$key"
 }
-
-planetarian::safe_prepend "$(which yarn &>/dev/null && yarn global bin 2>/dev/null)"
-planetarian::safe_prepend "$(which npm &>/dev/null && npm bin -g 2>/dev/null)"
 
 planetarian::node::latest_node() {
   curl -s https://nodejs.org/en/download/ | grep 'Latest LTS Version:' | grep -Pom 1 "(\d+\.)+\d+" | head -n 1

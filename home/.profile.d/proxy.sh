@@ -47,9 +47,9 @@ planetarian::proxy::autoload() {
 planetarian::feature_switch proxy autoload && planetarian::proxy::set
 
 planetarian::proxy() {
-  action=$1
+  command="planetarian::proxy::$1"
   shift
-  planetarian::proxy::$action $@
+  $command $@
 }
 
 pltr_proxy=planetarian::proxy

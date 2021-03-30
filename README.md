@@ -47,6 +47,16 @@ i node install-node [version]
 i node install-yarn [version]
 ```
 
+## Secret
+
+```bash
+i secret init
+# valut
+i vault set-host [host]
+i vault set-user []
+i vault login <period>
+```
+
 ## Init
 
 `i init <item>`

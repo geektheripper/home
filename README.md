@@ -50,11 +50,46 @@ i node install-yarn [version]
 ## Secret
 
 ```bash
+# init secret drive, install vault
+# and open autoload secret switch
 i secret init
+
 # valut
 i vault set-host [host]
-i vault set-user []
-i vault login <period>
+i vault set-user [user]
+i vault login
+```
+
+## SSH
+
+```
+~/.ssh/keys -> /run/planetarian/secret/ssh/keys
+|-- <collection name>
+|   |-- <key name>
+|   `-- ...
+`-- ...
+
+~/.ssh/config.d -> /run/planetarian/secret/ssh/config.d
+|-- <collection name>
+`-- ...
+```
+
+```bash
+# pull all keys and config from vault
+i ssh sync
+
+# push/pull a collection to vault
+# includes config and keys
+i ssh push <collection>
+i ssh pull <collection>
+
+# create a key and push to vault
+i ssh create <collection> <key>
+
+# print public key
+i ssh get pk <collection> <key>
+# print fingerprints fo a key
+i ssh get fp <collection> <key>
 ```
 
 ## Init

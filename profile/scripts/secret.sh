@@ -14,6 +14,7 @@ planetarian::secret::init_drive() {
 }
 
 planetarian::secret::init() {
+  planetarian::secret::vault::init
   planetarian::feature_switch secret autoload on
 }
 

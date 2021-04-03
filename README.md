@@ -92,6 +92,13 @@ i ssh get pk <collection> <key>
 i ssh get fp <collection> <key>
 ```
 
+## Environment based credentials
+
+```bash
+i env aliyun [account]
+i env aws [account] [default_region]
+```
+
 ## Init
 
 `i init <item>`

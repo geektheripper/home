@@ -25,6 +25,8 @@ planetarian::secret::vault::login() {
   VAULT_USER=${VAULT_USER:-"planetarian"}
 
   vault login -no-print -method=userpass username="$VAULT_USER"
+  VAULT_TOKEN=$(vault token lookup --format json | jq -r '.data.id')
+  export VAULT_TOKEN
 }
 
 planetarian::secret::vault::set_host() {

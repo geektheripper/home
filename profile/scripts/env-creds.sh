@@ -9,14 +9,14 @@ planetarian::env::env_cred() {
   eval "export $key=$value"
 }
 
-planetarian::env::aliyun::init() {
+planetarian::env::aliyun() {
   account=${1:-default}
 
   planetarian::env::env_cred aliyun "$account" Ali_Key
   planetarian::env::env_cred aliyun "$account" Ali_Secret
 }
 
-planetarian::env::aws::init() {
+planetarian::env::aws() {
   account=${1:-default}
   region=$2
 
@@ -29,5 +29,13 @@ planetarian::env::aws::init() {
   fi
 }
 
-pcmd 'env aliyun' planetarian::env::aliyun::init
-pcmd 'env aws' planetarian::env::aws::init
+planetarian::env::minio() {
+  host=${1:-default}
+  key=$2
+
+  planetarian::env::env_cred minio "$host" "MC_HOST_$key"
+}
+
+pcmd 'env aliyun' planetarian::env::aliyun
+pcmd 'env aws' planetarian::env::aws
+pcmd 'env minio' planetarian::env::minio

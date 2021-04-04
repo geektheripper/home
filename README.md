@@ -97,6 +97,7 @@ i ssh get fp <collection> <key>
 ```bash
 i env aliyun [account]
 i env aws [account] [default_region]
+i env minio [server] [user_name]
 ```
 
 ## Init

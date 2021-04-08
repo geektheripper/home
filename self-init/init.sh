@@ -9,6 +9,8 @@ export PLANETARIAN_HOME="$HOME/.planetarian/profile"
 
 planetarian::bashrc_block_probe() { grep "$1" <"$HOME/.bashrc"; } >/dev/null
 
+touch "$HOME"/.bashrc
+
 planetarian::bashrc_block_probe '# planetarian home' || {
   cat >>"$HOME"/.bashrc <<EOF
 

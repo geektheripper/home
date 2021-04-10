@@ -24,6 +24,8 @@ planetarian::secret::vault::login() {
   VAULT_USER=$(planetarian::config get secret vault_user 2>/dev/null)
   VAULT_USER=${VAULT_USER:-"planetarian"}
 
+  vault token revoke -self 2>/dev/null
+  unset VAULT_TOKEN
   vault login -no-print -method=userpass username="$VAULT_USER"
   VAULT_TOKEN=$(vault token lookup --format json | jq -r '.data.id')
   export VAULT_TOKEN

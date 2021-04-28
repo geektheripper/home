@@ -116,3 +116,5 @@ i env minio [server] [user_name]
 | `shellcheck`    | install shellcheck                               |
 | `docker`        | install docker, docker-compose and aliyun mirror |
 | `node`          | alias to `i node init`                           |
+| `daily`         | daily applications for geektr                    |
+| `minio`         | install minio client                             |

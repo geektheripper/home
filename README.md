@@ -5,9 +5,11 @@ planetarian's linux shell environment
 ## Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/geektheripper/planetarian/master/self-init/root-init.sh | bash
+# new cloud machine
+curl -fsSL https://raw.githubusercontent.com/geektheripper/planetarian/master/init.sh | bash
 
-# apt-get install -y curl git
+# install planetarian
+apt-get install -y curl git
 curl -fsSL https://raw.githubusercontent.com/geektheripper/planetarian/master/install.sh | bash
 ```
 
@@ -29,7 +31,7 @@ i ipv6 [on|off]
 ```bash
 i reload
 i upadte
-``` 
+```
 
 ## Proxy
 

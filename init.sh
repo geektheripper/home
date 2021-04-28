@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-apt-get update && apt-get install -y sudo acpid bzip2 curl dkms dnsutils gettext git git-lfs jq make net-tools rsync screen tmux tree unzip vim wget zip
+apt-get update && apt-get install -y sudo curl git
 
 gen_passwd() {
-  cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1
+  (tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1) </dev/urandom
 }
 
 init_user() {

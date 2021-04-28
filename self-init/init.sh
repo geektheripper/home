@@ -11,7 +11,7 @@ planetarian::bashrc_block_probe() { grep "$1" <"$HOME/.bashrc"; } >/dev/null
 
 touch "$HOME"/.bashrc
 
-planetarian::bashrc_block_probe '# planetarian home' || {
+planetarian::bashrc_block_probe '# includes common profile' || {
   cat >>"$HOME"/.bashrc <<EOF
 
 # includes common profile
@@ -21,6 +21,13 @@ fi
 
 EOF
 }
+
+if [ ! -f "$HOME"/.profile ]; then
+  cat >"$HOME"/.profile <<'EOF'
+if [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ]; then . "$HOME/.bashrc"; fi
+if [ -d "$HOME/.local/bin" ]; then PATH="$HOME/.local/bin:$PATH"; fi
+EOF
+fi
 
 # shellcheck disable=SC1090
 . "$PLANETARIAN_HOME/planetarian.sh"

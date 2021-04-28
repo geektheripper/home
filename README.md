@@ -115,3 +115,4 @@ i env minio [server] [user_name]
 | `zsh`           | install oh-my-zsh and pure theme                 |
 | `shellcheck`    | install shellcheck                               |
 | `docker`        | install docker, docker-compose and aliyun mirror |
+| `node`          | alias to `i node init`                           |

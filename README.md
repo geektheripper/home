@@ -96,6 +96,28 @@ i ssh get pk <collection> <key>
 i ssh get fp <collection> <key>
 ```
 
+## ACME
+
+```bash
+# install acme.sh
+i acme install
+
+# issue or renew a cert
+i acme req <provider> <domain> [...alt domains]
+
+# remove local cert
+i acme rm <domain>
+
+# apply cert to target
+i acme apply <target> [...target options]
+i acme apply console <domain>
+i acme apply esxi <domain> <server>
+
+# show cert
+# alias to "i acme apply console <domain>"
+i acme show <domain>
+```
+
 ## Environment based credentials
 
 ```bash

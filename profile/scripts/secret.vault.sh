@@ -31,6 +31,12 @@ planetarian::secret::vault::login() {
   export VAULT_TOKEN
 }
 
+planetarian::secret::vault::su() {
+  echo -n "root token: "
+  read -rs VAULT_TOKEN
+  export VAULT_TOKEN
+}
+
 planetarian::secret::vault::set_host() {
   planetarian::config set secret vault_addr "$1"
   planetarian::secret::vault::clear
@@ -48,3 +54,4 @@ planetarian::feature_switch secret autoload && planetarian::secret::vault::load
 pcmd "vault set-host" planetarian::secret::vault::set_host
 pcmd "vault set-user" planetarian::secret::vault::set_user
 pcmd "vault login" planetarian::secret::vault::login
+pcmd "vault su" planetarian::secret::vault::su

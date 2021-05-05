@@ -140,3 +140,5 @@ i env minio [server] [user_name]
 | `node`          | alias to `i node init`                           |
 | `daily`         | daily applications for geektr                    |
 | `minio`         | install minio client                             |
+| `hclfmt`        | install hcl format                               |
+| `terraform`     | install terraform                                |

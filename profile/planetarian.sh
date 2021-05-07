@@ -21,6 +21,9 @@ planetarian::profile::reload() {
       if [ -f "$file" ]; then . "$file"; fi
     done
   fi
+
+  planetarian::command reload planetarian::profile::reload
+  planetarian::command update planetarian::update
 }
 
 planetarian::profile::reload
@@ -28,6 +31,3 @@ planetarian::profile::reload
 planetarian::update() {
   git -C "$PLANETARIAN_ROOT" pull && planetarian::profile::reload
 }
-
-pcmd reload planetarian::profile::reload
-pcmd update planetarian::update

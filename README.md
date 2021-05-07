@@ -64,6 +64,21 @@ i vault set-user [user]
 i vault login
 ```
 
+## Random
+
+```bash
+i rnd string <charset> <length>
+# ts>r<>sehctce>rsat>tash<<ee<ac>rt<hat>>het
+i rnd alpha [length]
+# ugLjfsuzPVBaPIig
+i rnd alnum [length]
+# AXYfbJ8oRZuTtYb7
+i rnd passwd [length]
+# lFdLBuUErFU62niC
+i rnd sqpass [length]
+# hc[(U3B3YBr^05,M
+```
+
 ## SSH
 
 ```

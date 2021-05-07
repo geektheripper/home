@@ -62,6 +62,20 @@ i secret init
 i vault set-host [host]
 i vault set-user [user]
 i vault login
+
+# env utils
+i vault env pair <path/to/secret>
+# => "FOO=1 BAR=2"
+# eval "$(i vault env pair path/to/secret) run some command"
+i vault env load <path/to/secret>
+# eval "FOO=1 BAR=2"
+i vault env export <path/to/secret>
+# eval "export FOO=1 BAR=2"
+i vault env unset <path/to/secret>
+# eval "unset FOO BAR"
+# eval "export FOO BAR"
+i vault env envsubst <path/to/secret>
+# i vault env envsubst path/to/secret <config.tmpl.json >config.json
 ```
 
 ## Random

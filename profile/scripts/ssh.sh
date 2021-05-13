@@ -65,6 +65,8 @@ planetarian::ssh::sync::pull() {
     return 1
   fi
 
+  planetarian::ssh::init
+
   collection=$1
 
   key_base="$HOME/.ssh/keys/$collection"

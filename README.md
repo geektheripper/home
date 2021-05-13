@@ -164,10 +164,11 @@ i env minio [server] [user_name]
 | `git`           | set git user email and defaultBranch             |
 | `vscode-remote` | set zsh as default shell                         |
 | `zsh`           | install oh-my-zsh and pure theme                 |
-| `shellcheck`    | install shellcheck                               |
+| `shellcheck`    | -                                                |
 | `docker`        | install docker, docker-compose and aliyun mirror |
 | `node`          | alias to `i node init`                           |
 | `daily`         | daily applications for geektr                    |
-| `minio`         | install minio client                             |
-| `hclfmt`        | install hcl format                               |
-| `terraform`     | install terraform                                |
+| `minio`         | -                                                |
+| `hclfmt`        | -                                                |
+| `terraform`     | -                                                |
+| `azure-cli`     | -                                                |

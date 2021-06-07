@@ -120,7 +120,7 @@ planetarian::ssh::sync::get_public_key() {
 
   planetarian::ssh::sync::pull "$1"
 
-  ssh-keygen -y -f "$HOME/.ssh/keys/$1/$2"
+  ssh-keygen -y -f "$HOME/.ssh/keys/$1/$2" | tee "$HOME/.ssh/keys/$1/$2.pub"
 }
 
 planetarian::ssh::sync::get_fingerprints() {

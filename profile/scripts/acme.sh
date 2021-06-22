@@ -28,6 +28,8 @@ planetarian::acme::install() {
   popd || return
 
   rm -rf "/tmp/.acme.sh"
+
+  planetarian::config add secret post_init "planetarian::acme::install"
 }
 
 planetarian::acme::push() {

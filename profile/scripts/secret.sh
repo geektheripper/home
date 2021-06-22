@@ -21,6 +21,15 @@ planetarian::secret::init_drive() {
   echo "$pltr_secret_base"
 
   planetarian_secret_drive_inited=true
+
+  planetarian::secret::init_drive::post || echo "post init failed"
+}
+
+planetarian::secret::init_drive::post() {
+  planetarian::config get secret post_init >/dev/null || return 1
+  for command in $(planetarian::config get secret post_init | sed "s/,/ /g"); do
+    $command || return 1
+  done
 }
 
 planetarian::secret::init() {

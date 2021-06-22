@@ -12,7 +12,7 @@ planetarian::acme::install() {
   if [ -d "$HOME/.acme.sh" ]; then
     cp -r "$HOME/.acme.sh" /tmp/
   else
-  git clone https://github.com/acmesh-official/acme.sh.git "/tmp/.acme.sh"
+    git clone https://github.com/acmesh-official/acme.sh.git "/tmp/.acme.sh"
   fi
 
   pushd "/tmp/.acme.sh" || return 1
@@ -104,6 +104,11 @@ planetarian::acme::remove() {
   rm -r "$secret_dir/acme/certs/$domain"
 }
 
+planetarian::acme::remote_remove() {
+  domain="$1"
+  vault kv metadata delete "planetarian-kv/certs/$domain"
+}
+
 planetarian::acme::issue_or_renew() {
   dns_provider="$1"
   [[ "$dns_provider" == "gandi" ]] && dns_provider=gandi_livedns
@@ -133,5 +138,6 @@ planetarian::acme::issue_or_renew() {
 pcmd 'acme install' planetarian::acme::install
 pcmd 'acme req' planetarian::acme::issue_or_renew
 pcmd 'acme rm' planetarian::acme::remove
+pcmd 'acme remote-rm' planetarian::acme::remote_remove
 pcmd 'acme apply' planetarian::acme::apply
 pcmd 'acme show' planetarian::acme::show

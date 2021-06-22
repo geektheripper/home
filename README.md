@@ -139,6 +139,9 @@ i acme req <provider> <domain> [...alt domains]
 # remove local cert
 i acme rm <domain>
 
+# remove remote cert
+i acme remote-rm <domain>
+
 # apply cert to target
 i acme apply <target> [...target options]
 i acme apply console <domain>

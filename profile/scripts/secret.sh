@@ -39,4 +39,4 @@ planetarian::secret::init() {
 
 planetarian::feature_switch secret autoload && planetarian::secret::init_drive >/dev/null
 
-pcmd "secret init" planetarian::secret::init
+planetarian::command "secret init" planetarian::secret::init

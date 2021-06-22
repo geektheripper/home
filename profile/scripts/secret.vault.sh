@@ -49,7 +49,7 @@ planetarian::secret::vault::set_user() {
 
 planetarian::feature_switch secret autoload && planetarian::secret::vault::load
 
-pcmd "vault set-host" planetarian::secret::vault::set_host
-pcmd "vault set-user" planetarian::secret::vault::set_user
-pcmd "vault login" planetarian::secret::vault::login
-pcmd "vault su" planetarian::secret::vault::su
+planetarian::command "vault set-host" planetarian::secret::vault::set_host
+planetarian::command "vault set-user" planetarian::secret::vault::set_user
+planetarian::command "vault login" planetarian::secret::vault::login
+planetarian::command "vault su" planetarian::secret::vault::su

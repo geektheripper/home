@@ -141,10 +141,10 @@ planetarian::ssh::sync::get_fingerprints() {
   ssh-keygen -lf "$key_file"
 }
 
-pcmd "ssh sync" planetarian::ssh::sync
-pcmd "ssh push" planetarian::ssh::sync::push
-pcmd "ssh pull" planetarian::ssh::sync::pull
-pcmd "ssh create" planetarian::ssh::sync::create
+planetarian::command "ssh sync" planetarian::ssh::sync
+planetarian::command "ssh push" planetarian::ssh::sync::push
+planetarian::command "ssh pull" planetarian::ssh::sync::pull
+planetarian::command "ssh create" planetarian::ssh::sync::create
 
-pcmd "ssh get pk" planetarian::ssh::sync::get_public_key
-pcmd "ssh get fp" planetarian::ssh::sync::get_fingerprints
+planetarian::command "ssh get pk" planetarian::ssh::sync::get_public_key
+planetarian::command "ssh get fp" planetarian::ssh::sync::get_fingerprints

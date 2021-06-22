@@ -32,4 +32,4 @@ planetarian::secret::vault::env() {
   $command "$@"
 }
 
-pcmd "vault env" planetarian::secret::vault::env
+planetarian::command "vault env" planetarian::secret::vault::env

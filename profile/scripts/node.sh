@@ -128,6 +128,6 @@ planetarian::node::init() {
   planetarian::node::config_yarn
 }
 
-pcmd 'node install node' planetarian::node::install_node
-pcmd 'node install yarn' planetarian::node::install_yarn
-pcmd 'node init' planetarian::node::init
+planetarian::command 'node install node' planetarian::node::install_node
+planetarian::command 'node install yarn' planetarian::node::install_yarn
+planetarian::command 'node init' planetarian::node::init

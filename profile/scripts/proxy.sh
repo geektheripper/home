@@ -56,4 +56,4 @@ planetarian::proxy() {
   $command "$@"
 }
 
-pcmd proxy planetarian::proxy
+planetarian::command proxy planetarian::proxy

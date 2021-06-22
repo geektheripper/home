@@ -135,9 +135,9 @@ planetarian::acme::issue_or_renew() {
   eval "$command" && planetarian::acme::push "$first_domain"
 }
 
-pcmd 'acme install' planetarian::acme::install
-pcmd 'acme req' planetarian::acme::issue_or_renew
-pcmd 'acme rm' planetarian::acme::remove
-pcmd 'acme remote-rm' planetarian::acme::remote_remove
-pcmd 'acme apply' planetarian::acme::apply
-pcmd 'acme show' planetarian::acme::show
+planetarian::command 'acme install' planetarian::acme::install
+planetarian::command 'acme req' planetarian::acme::issue_or_renew
+planetarian::command 'acme rm' planetarian::acme::remove
+planetarian::command 'acme remote-rm' planetarian::acme::remote_remove
+planetarian::command 'acme apply' planetarian::acme::apply
+planetarian::command 'acme show' planetarian::acme::show

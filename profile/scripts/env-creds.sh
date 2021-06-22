@@ -36,6 +36,6 @@ planetarian::env::minio() {
   planetarian::env::env_cred minio "$host" "MC_HOST_$key"
 }
 
-pcmd 'env aliyun' planetarian::env::aliyun
-pcmd 'env aws' planetarian::env::aws
-pcmd 'env minio' planetarian::env::minio
+planetarian::command 'env aliyun' planetarian::env::aliyun
+planetarian::command 'env aws' planetarian::env::aws
+planetarian::command 'env minio' planetarian::env::minio

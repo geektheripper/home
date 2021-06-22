@@ -33,5 +33,5 @@ function planetarian() {
   $command "$@"
 }
 
-alias pcmd='planetarian::command'
 alias i='planetarian'
+planetarian::command pcmd planetarian::command

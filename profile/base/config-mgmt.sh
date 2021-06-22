@@ -40,5 +40,5 @@ planetarian::feature_switch() {
   fi
 } 2>/dev/null
 
-pcmd config planetarian::config
-pcmd switch planetarian::feature_switch
+planetarian::command config planetarian::config
+planetarian::command switch planetarian::feature_switch

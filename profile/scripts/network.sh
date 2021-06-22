@@ -10,8 +10,8 @@ planetarian::ipv6::off() {
   sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
 }
 
-pcmd "ipv6 on" planetarian::ipv6::on
-pcmd "ipv6 off" planetarian::ipv6::off
+planetarian::command "ipv6 on" planetarian::ipv6::on
+planetarian::command "ipv6 off" planetarian::ipv6::off
 
 planetarian::net::connect-google() {
   ping -c1 -W1 www.google.com >/dev/null

@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
+planetarian::config::read() {
+  _scope=$1
+  _key=$2
+  _msg=$3
+
+  crudini --get "$PLANETARIAN_CONFIG" "$_scope" "$_key" && return
+
+  >&2 echo -n "$_msg"
+  read -r config_value
+  crudini --set "$PLANETARIAN_CONFIG" "$_scope" "$_key" "$config_value"
+  echo "$config_value"
+}
+
 planetarian::config() {
   action=$1
   shift
@@ -7,6 +20,8 @@ planetarian::config() {
     crudini --set --list --list-sep ',' "$PLANETARIAN_CONFIG" "$@"
   elif [[ "remove" == "$action" ]]; then
     crudini --del --list --list-sep ',' "$PLANETARIAN_CONFIG" "$@"
+  elif [[ "cread" == "$action" ]]; then
+    planetarian::config::read "$@"
   else
     crudini --"$action" "$PLANETARIAN_CONFIG" "$@"
   fi

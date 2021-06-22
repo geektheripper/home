@@ -17,6 +17,8 @@ curl -fsSL https://raw.githubusercontent.com/geektheripper/planetarian/master/in
 
 ```bash
 i config <set|del|get|add|remove> <scope> <key> [value]
+# cached read
+i config cread <scoop> <key> <message>
 i switch <scope> <key> [on|off]
 ```
 

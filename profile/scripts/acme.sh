@@ -4,14 +4,19 @@ ACME_SH_PATH=$HOME/.acme.sh
 planetarian::acme::install() {
   secret_dir=$(planetarian::secret::init_drive)
 
-  echo -n "email for acme: "
-  read -r acme_email
+  acme_email=$(planetarian::config cread acme email "email for acme: ")
 
   mkdir -p "$secret_dir/acme/conf"
   mkdir -p "$secret_dir/acme/certs"
 
+  if [ -d "$HOME/.acme.sh" ]; then
+    cp -r "$HOME/.acme.sh" /tmp/
+  else
   git clone https://github.com/acmesh-official/acme.sh.git "/tmp/.acme.sh"
-  pushd "/tmp/.acme.sh" || return
+  fi
+
+  pushd "/tmp/.acme.sh" || return 1
+
   ./acme.sh --install \
     --config-home "$secret_dir/acme/conf" \
     --cert-home "$secret_dir/acme/certs" \
@@ -19,6 +24,7 @@ planetarian::acme::install() {
     --accountkey "$secret_dir/acme/acc.key" \
     --accountconf "$secret_dir/acme/acc.conf" \
     --useragent "planetarian"
+
   popd || return
 
   rm -rf "/tmp/.acme.sh"
@@ -46,11 +52,15 @@ planetarian::acme::pull() {
   domain="$1"
   base="$secret_dir/acme/certs/$domain"
 
+  [[ -f "$base/$domain.cer" ]] && return
+
   mkdir -p "$base"
 
   vault kv get --format json "planetarian-kv/certs/$domain" >"$base/acme.json"
+
   [[ -s "$base/acme.json" ]] || {
-    rm "$base/acme.json"
+    echo "fail to load key"
+    rm -r "$base"
     return 1
   }
 
@@ -63,6 +73,8 @@ planetarian::acme::pull() {
     >(jq -r '.data.data.fullchain' >"$base/fullchain.cer") \
     >(jq -r '.data.data.key' >"$base/$domain.key") \
     >/dev/null) <"$base/acme.json"
+
+  find "$base" -type f -size -2b -delete
 }
 
 planetarian::acme::apply() {
@@ -97,7 +109,7 @@ planetarian::acme::issue_or_renew() {
 
   first_domain="$1"
 
-  planetarian::acme::pull "$first_domain" 2>/dev/null
+  planetarian::acme::pull "$first_domain"
 
   command="acme.sh"
 

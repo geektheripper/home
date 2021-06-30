@@ -158,6 +158,7 @@ i acme show <domain>
 i env aliyun [account]
 i env aws [account] [default_region]
 i env minio [server] [user_name]
+i env misc <path>
 ```
 
 ## Init

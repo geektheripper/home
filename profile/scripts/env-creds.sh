@@ -36,6 +36,18 @@ planetarian::env::minio() {
   planetarian::env::env_cred minio "$host" "MC_HOST_$key"
 }
 
+planetarian::env::misc() {
+  env_path=${1}
+
+  OIFS=$IFS
+  IFS=$'\n'
+  for command in $(vault kv get --format json "planetarian-kv/misc/$env_path" | jq -rc '.data.data|to_entries|map("export \(.key)=\(.value|tostring)")|.[]'); do
+    eval "$command"
+  done
+  IFS=$OIFS
+}
+
 planetarian::command 'env aliyun' planetarian::env::aliyun
 planetarian::command 'env aws' planetarian::env::aws
 planetarian::command 'env minio' planetarian::env::minio
+planetarian::command 'env misc' planetarian::env::misc

@@ -178,3 +178,4 @@ i env misc <path>
 | `hclfmt`        | -                                                |
 | `terraform`     | -                                                |
 | `azure-cli`     | -                                                |
+| `bdpcs`         | install qjfoidnh/BaiduPCS-Go                     |

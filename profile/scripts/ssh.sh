@@ -103,7 +103,7 @@ planetarian::ssh::sync::create() {
   planetarian::ssh::sync::pull "$1"
 
   key_file="$HOME/.ssh/keys/$1/$2"
-  ssh-keygen -b 4096 -t rsa -f "$key_file" -q -N ""
+  ssh-keygen -b 4096 -t rsa -m PEM -f "$key_file" -q -N ""
 
   planetarian::ssh::sync::push "$1"
 }

@@ -6,7 +6,7 @@ planetarian's linux shell environment
 
 ```bash
 # new cloud machine
-curl -fsSL https://raw.githubusercontent.com/geektheripper/planetarian/master/init.sh | bash
+curl -fsSL https://raw.githubusercontent.com/geektheripper/planetarian/master/init.sh | bash -s -- https://raw.githubusercontent.com/geektheripper/planetarian/master/config-template.json
 
 # install planetarian
 apt-get install -y curl git

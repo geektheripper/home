@@ -29,5 +29,11 @@ if [ -d "$HOME/.local/bin" ]; then PATH="$HOME/.local/bin:$PATH"; fi
 EOF
 fi
 
-# shellcheck disable=SC1090
+# shellcheck disable=SC1091
 . "$PLANETARIAN_HOME/planetarian.sh"
+
+planetarian_remote_config=$1
+if [ -n "$planetarian_remote_config" ]; then
+  # shellcheck disable=SC1091
+  . "$HOME/.planetarian/self-init/load-config.sh"
+fi

@@ -9,8 +9,8 @@ planetarian's linux shell environment
 curl -fsSL https://raw.githubusercontent.com/geektheripper/planetarian/master/init.sh | bash -s -- https://raw.githubusercontent.com/geektheripper/planetarian/master/config-template.json
 
 # install planetarian
-apt-get install -y curl git
-curl -fsSL https://raw.githubusercontent.com/geektheripper/planetarian/master/install.sh | bash
+sudo apt-get install -y curl git
+curl -fsSL https://raw.githubusercontent.com/geektheripper/planetarian/master/install.sh | bash -s -- https://raw.githubusercontent.com/geektheripper/planetarian/master/config-template.json
 ```
 
 ## Config
@@ -179,3 +179,7 @@ i env misc <path>
 | `terraform`     | -                                                |
 | `azure-cli`     | -                                                |
 | `bdpcs`         | install qjfoidnh/BaiduPCS-Go                     |
+
+## Todo
+
+- [ ] load-config: `planetarian.init.node.version`

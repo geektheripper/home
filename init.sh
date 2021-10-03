@@ -38,11 +38,11 @@ json_pick() {
 
 apt-get update && apt-get install -y sudo curl git jq
 
-remote_config=$1
+planetarian_remote_config=$1
 
-config=$(curl "$remote_config")
+planetarian_config=$(curl "$planetarian_remote_config")
 
-echo "$config" | jq -c '.init.users[]' | while read -r i; do
+echo "$planetarian_config" | jq -c '.init.users[]' | while read -r i; do
   username=$(json_pick "$i" '.username')
   public_key=$(json_pick "$i" '.public_key')
   allow_sudo=$(json_pick "$i" '.allow_sudo')

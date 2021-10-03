@@ -12,5 +12,21 @@
                 "allow_sudo": false
             }
         ]
+    },
+    "planetarian": {
+        "ipv6": {
+            "on": false
+        },
+        "secret": {
+            "vault": {
+                "login_method": "userpass",
+                "address": "https://vault.geektr.co",
+                "user": "planetarian"
+            }
+        },
+        "proxy": {
+            "default_server": "http://proxy.geektr.co:3128",
+            "autoload": false
+        }
     }
 }

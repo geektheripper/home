@@ -12,7 +12,11 @@ planetarian::secret::vault::clear() {
 
 planetarian::secret::vault::load() {
   VAULT_ADDR=$(planetarian::config get secret vault_addr 2>/dev/null)
-  VAULT_ADDR=${VAULT_ADDR:-"https://vault.geektr.co"}
+  if [ -z "$VAULT_ADDR" ]; then
+    echo >&2 "\$VAULT_ADDR not set"
+    return 1
+  fi
+
   export VAULT_ADDR
 }
 
@@ -20,7 +24,10 @@ planetarian::secret::vault::login() {
   planetarian::secret::vault::load
 
   VAULT_USER=$(planetarian::config get secret vault_user 2>/dev/null)
-  VAULT_USER=${VAULT_USER:-"planetarian"}
+  if [ -z "$VAULT_USER" ]; then
+    echo >&2 "\$VAULT_USER not set"
+    return 1
+  fi
 
   vault token revoke -self 2>/dev/null
   unset VAULT_TOKEN

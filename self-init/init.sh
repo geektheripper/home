@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 sudo apt-get update && sudo apt-get install -y \
-  locales crudini jq curl gpg software-properties-common \
-  apt-add-repository
+  locales crudini jq curl gpg software-properties-common
 
 sudo locale-gen en_US.UTF-8
 

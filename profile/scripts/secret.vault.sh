@@ -51,7 +51,6 @@ planetarian::secret::vault::set_host() {
 planetarian::secret::vault::set_user() {
   planetarian::secret::vault::clear
   planetarian::config set secret vault_user "$1"
-  planetarian::secret::vault::login
 }
 
 planetarian::feature_switch secret autoload && planetarian::secret::vault::load

@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-
 planetarian::secret::vault::env::keys() {
-  vault kv get --format json "$1" | jq -r '.data | to_entries | map(.key) | join(" ")'
+  planetarian::secret::vault::json "$1" | jq -r 'to_entries | map(.key) | join(" ")'
 }
 
 planetarian::secret::vault::env::pair() {
-  vault kv get --format json "$1" | jq -r '.data | to_entries | map(.key + "=" + "'"'"'" + .value +"'"'"'") | join(" ")'
+  planetarian::secret::vault::json "$1" | jq -r 'to_entries | map(.key + "=" + "'"'"'" + .value +"'"'"'") | join(" ")'
 }
 
 planetarian::secret::vault::env::load() {

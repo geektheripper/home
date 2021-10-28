@@ -64,6 +64,8 @@ i secret init
 i vault set-host [host]
 i vault set-user [user]
 i vault login
+i vault json <path/to/secret>
+# get json format secret
 
 # env utils
 i vault env pair <path/to/secret>

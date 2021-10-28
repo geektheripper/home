@@ -53,9 +53,21 @@ planetarian::secret::vault::set_user() {
   planetarian::config set secret vault_user "$1"
 }
 
+planetarian::secret::vault::json() {
+  _json=$(vault kv get --format json "$1")
+  _json_jq() { echo "$_json" | jq -r "$1"; }
+  if [[ "$(_json_jq '.data.data | type')" == "object" ]] && [[ "$(_json_jq '.data.metadata | type')" == "object" ]]; then
+    _json_jq '.data.data'
+  else
+    _json_jq '.data'
+  fi
+}
+
 planetarian::feature_switch secret autoload && planetarian::secret::vault::load
 
 planetarian::command "vault set-host" planetarian::secret::vault::set_host
 planetarian::command "vault set-user" planetarian::secret::vault::set_user
 planetarian::command "vault login" planetarian::secret::vault::login
 planetarian::command "vault su" planetarian::secret::vault::su
+
+planetarian::command "vault json" planetarian::secret::vault::json

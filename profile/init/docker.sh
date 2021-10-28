@@ -29,8 +29,5 @@ else
   curl -fsSL https://get.docker.com | bash -s docker
 fi
 
-if id geektr; then sudo usermod -aG docker geektr; fi
-if id yumemi; then sudo usermod -aG docker yumemi; fi
-
 planetarian::proxy::set
 install_docker_compose

@@ -12,7 +12,6 @@ json_pick() {
 load_vault() {
   planetarian_vault_config=$(json_pick "$planetarian_config" '.planetarian.secret.vault')
   if [ -n "$planetarian_vault_config" ]; then
-    planetarian::init vault
     planetarian::secret::init
     planetarian::secret::vault::set_host "$(json_pick "$planetarian_vault_config" '.address')"
     planetarian::secret::vault::set_user "$(json_pick "$planetarian_vault_config" '.user')"

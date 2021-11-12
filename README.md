@@ -43,6 +43,10 @@ i proxy set-default http://host:port
 i proxy unset
 i proxy autoload on
 i proxy autoload off
+i proxy no-proxy add
+i proxy no-proxy remove
+i proxy set-docker
+i proxy unset-docker
 ```
 
 ## NodeJS

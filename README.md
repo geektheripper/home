@@ -49,6 +49,12 @@ i proxy set-docker
 i proxy unset-docker
 ```
 
+## Docker
+
+```bash
+i docker set-proxy [http://host:port]
+```
+
 ## NodeJS
 
 ```bash

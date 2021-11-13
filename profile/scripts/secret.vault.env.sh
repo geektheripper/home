@@ -4,7 +4,7 @@ planetarian::secret::vault::env::keys() {
 }
 
 planetarian::secret::vault::env::pair() {
-  planetarian::secret::vault::json "$1" | jq -r 'to_entries | map(.key + "=" + "'"'"'" + .value +"'"'"'") | join(" ")'
+  planetarian::secret::vault::json "$1" | jq -r 'to_entries | map(.key + "=" + "'"'"'" + (.value | tostring) +"'"'"'") | join(" ")'
 }
 
 planetarian::secret::vault::env::load() {

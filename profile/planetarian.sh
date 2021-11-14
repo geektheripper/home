@@ -3,6 +3,8 @@ export PLANETARIAN_ROOT="$HOME/.planetarian"
 export PLANETARIAN_HOME="$HOME/.planetarian/profile"
 export PLANETARIAN_CONFIG="$HOME/.planetarian.ini"
 
+export LC_ALL=en_US.UTF-8
+
 planetarian::profile::reload() {
   for script_name in \
     "env" "helpers" "command" "config-mgmt"; do

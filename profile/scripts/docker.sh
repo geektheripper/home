@@ -11,6 +11,7 @@ planetarian::docker::set-proxy() {
     echo '{}' >"$_file"
   fi
 
+  _tmp=$(mktemp)
   # shellcheck disable=SC2094
   jq \
     --arg _proxy "$_proxy" \
@@ -18,18 +19,24 @@ planetarian::docker::set-proxy() {
     '.proxies.default.httpProxy = $_proxy |
      .proxies.default.httpsProxy = $_proxy |
      .proxies.default.noProxy = $_no_proxy' \
-    "$_file" | tac | tac >"$_file"
+    "$_file" >"$_tmp"
+
+  mv "$_tmp" "$_file"
 }
 
 planetarian::docker::unset-proxy() {
   _file="$HOME"/.docker/config.json
   if [ -f "$_file" ]; then
     # shellcheck disable=SC2094
+
+    _tmp=$(mktemp)
     jq \
       'del(.proxies.default.httpProxy) |
        del(.proxies.default.httpsProxy) |
        del(.proxies.default.noProxy)' \
-      "$_file" | tac | tac >"$_file"
+      "$_file" >"$_tmp"
+
+    mv "$_tmp" "$_file"
   fi
 }
 

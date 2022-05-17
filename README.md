@@ -195,3 +195,5 @@ i env misc <path>
 ## Todo
 
 - [ ] load-config: `planetarian.init.node.version`
+- [ ] use `/run/user/${UID}` as secret storage
+- [ ] use `cubbyhole` to save user secret

@@ -1,11 +1,24 @@
 #!/usr/bin/env bash
 
-hclfmt_version=0.0.1
+set -e
 
-mkdir -p /tmp/hclfmt
-cd "/tmp/hclfmt" || exit
+latest_ver() {
+  curl --silent "https://api.github.com/repos/$1/releases/latest" |
+    grep '"tag_name":' |
+    sed -E 's/.*"v([^"]+)".*/\1/'
+}
 
-wget https://github.com/teamon/hclfmt/releases/download/v${hclfmt_version}/hclfmt_${hclfmt_version}_Linux_x86_64.gz
-gzip -d hclfmt_${hclfmt_version}_Linux_x86_64.gz
-chmod +x hclfmt_${hclfmt_version}_Linux_x86_64
-sudo mv hclfmt_${hclfmt_version}_Linux_x86_64 /usr/local/bin/hclfmt
+if planetarian::net::in-gfw; then
+  planetarian::proxy::set
+fi
+
+version=$(latest_ver teamon/hclfmt)
+
+_tmp_dir=$(mktemp -d)
+trap "rm -r $_tmp_dir" EXIT
+pushd "$_tmp_dir" || exit
+
+wget https://github.com/teamon/hclfmt/releases/download/v${version}/hclfmt_${version}_Linux_x86_64.gz
+gzip -d hclfmt_${version}_Linux_x86_64.gz
+chmod +x hclfmt_${version}_Linux_x86_64
+sudo mv hclfmt_${version}_Linux_x86_64 /usr/local/bin/hclfmt

@@ -22,7 +22,7 @@ planetarian::proxy::get-no-proxy() {
     return 0
   fi
 
-  planetarian::config get proxy no-proxy 2>/dev/null
+  planetarian::config get proxy no-proxy 2>/dev/null || true
 }
 
 planetarian::proxy::load-default() {

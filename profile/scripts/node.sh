@@ -15,9 +15,7 @@ planetarian::node::gpg_import() {
     return 0
   fi
 
-  gpg --batch --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" ||
-    gpg --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" ||
-    gpg --batch --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" || {
+  gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys "$key" || {
     echo >&2 "import key failed: $key"
     return 1
   }

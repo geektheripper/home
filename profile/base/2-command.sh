@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+# build "hash map" for "i" command to resolve commands
+
 function planetarian::quick_hash() {
-  echo "$1" | cksum | awk '{print $1}'
+  echo "$1" | md5sum | awk '{print $1}'
 }
 
 function planetarian::command::clear() {

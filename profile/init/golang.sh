@@ -13,14 +13,14 @@ wget -O go.tar.gz "$go_dl_url"
 sudo rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf go.tar.gz
 
-planetarian::safe_prepend /usr/local/go/bin
+export PATH="/usr/local/go/bin:$PATH"
 export GOPATH=/usr/local/go/src
 
 planetarian::toolbox text-block -f "$HOME/.profile" -key "golang" write <<'EOF'
 if [ -d /usr/local/go/bin ] ; then
-    PATH="/usr/local/go/bin:$PATH"
+    export PATH="/usr/local/go/bin:$PATH"
 fi
 if [ -d /usr/local/go/src ] ; then
-    export GOPATH=/usr/local/go/src
+    export $GOPATH=/usr/local/go/src
 fi
 EOF

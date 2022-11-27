@@ -7,7 +7,7 @@ export PLANETARIAN_CONFIG="$HOME/.planetarian.ini"
 
 # Install nessary dependencies
 sudo apt-get update && sudo apt-get install -y \
-  locales crudini jq curl gpg software-properties-common
+  locales jq curl gpg software-properties-common
 
 # Locale
 sudo locale-gen en_US.UTF-8

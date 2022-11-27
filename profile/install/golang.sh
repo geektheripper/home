@@ -2,8 +2,8 @@
 
 set -e
 
-planetarian::init::utils::set-proxy
-planetarian::init::utils::cd-tempdir
+planetarian::install::utils::set-proxy
+planetarian::install::utils::cd-tempdir
 
 golang_version=1.18
 

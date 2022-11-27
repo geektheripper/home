@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-planetarian::secret::vault::init() {
-  planetarian::init vault
+planetarian::secret::vault::install() {
+  planetarian::install vault
 }
 
 planetarian::secret::vault::clear() {

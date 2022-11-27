@@ -58,7 +58,7 @@ i docker set-proxy [http://host:port]
 ## NodeJS
 
 ```bash
-i node init
+i node install
 i node install-node [version]
 i node install-yarn [version]
 ```
@@ -68,7 +68,7 @@ i node install-yarn [version]
 ```bash
 # init secret drive, install vault
 # and open autoload secret switch
-i secret init
+i secret install
 
 # valut
 i vault set-host [host]
@@ -173,9 +173,9 @@ i env minio [server] [user_name]
 i env misc <path>
 ```
 
-## Init
+## Install
 
-`i init <item>`
+`i install <item>`
 
 | key             | description                                      |
 | --------------- | ------------------------------------------------ |
@@ -184,7 +184,7 @@ i env misc <path>
 | `zsh`           | install oh-my-zsh and pure theme                 |
 | `shellcheck`    | -                                                |
 | `docker`        | install docker, docker-compose and aliyun mirror |
-| `node`          | alias to `i node init`                           |
+| `node`          | alias to `i node install`                        |
 | `daily`         | daily applications for geektr                    |
 | `minio`         | -                                                |
 | `hclfmt`        | -                                                |
@@ -195,5 +195,4 @@ i env misc <path>
 ## Todo
 
 - [ ] load-config: `planetarian.init.node.version`
-- [ ] use `/run/user/${UID}` as secret storage
 - [ ] use `cubbyhole` to save user secret

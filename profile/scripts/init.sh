@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-planetarian::init() {
-  bash -i "$PLANETARIAN_HOME/init/$1.sh"
+planetarian::install() {
+  bash -i "$PLANETARIAN_HOME/install/$1.sh"
 }
 
-planetarian::command init planetarian::init
+planetarian::command install planetarian::install
 
-planetarian::init::utils::set-proxy() {
+planetarian::install::utils::set-proxy() {
   if [ -z "$HTTP_PROXY" ] && planetarian::net::in-gfw; then
     planetarian::proxy::set
     I_SET_PROXY=true
@@ -20,7 +20,7 @@ planetarian::init::utils::set-proxy() {
   trap reset_proxy EXIT
 }
 
-planetarian::init::utils::cd-tempdir() {
+planetarian::install::utils::cd-tempdir() {
   temp_dir=$(mktemp -d)
   flag=$1
   clear_temp_dir() {
@@ -31,7 +31,6 @@ planetarian::init::utils::cd-tempdir() {
   cd "$temp_dir" || exit
 }
 
-BEDITOR="$PLANETARIAN_BIN/toolbox block-editor write"
-planetarian::init::utils::block-edit() {
-  $BEDITOR "$@"
+planetarian::install::utils::block-edit() {
+  "$PLANETARIAN_TOOLBOX" block-editor write "$@"
 }

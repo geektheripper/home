@@ -118,7 +118,7 @@ planetarian::node::config_yarn() {
   yarn config set cache-folder "$HOME/.node/yarn-cache"
 }
 
-planetarian::node::init() {
+planetarian::node::install() {
   planetarian::node::install_node
   planetarian::node::install_yarn
   hash -r
@@ -126,6 +126,6 @@ planetarian::node::init() {
   planetarian::node::config_yarn
 }
 
-planetarian::command 'node install node' planetarian::node::install_node
-planetarian::command 'node install yarn' planetarian::node::install_yarn
-planetarian::command 'node init' planetarian::node::init
+planetarian::command 'node install-node' planetarian::node::install_node
+planetarian::command 'node install-yarn' planetarian::node::install_yarn
+planetarian::command 'node install' planetarian::node::install

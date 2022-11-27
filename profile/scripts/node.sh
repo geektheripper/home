@@ -10,7 +10,7 @@ planetarian::node::gpg_import() {
     return 1
   fi
 
-  if [[ ",$(planetarian::config get node gpg_keys)," = *",$key,"* ]]; then
+  if planetarian::config node:gpg_keys set test "$key"; then
     echo >&2 "$key already imported, skip"
     return 0
   fi
@@ -21,7 +21,7 @@ planetarian::node::gpg_import() {
   }
 
   echo >&2 "import key: $key"
-  planetarian::config add node gpg_keys "$key"
+  planetarian::config node:gpg_keys set add "$key"
 }
 
 planetarian::node::latest_node() {

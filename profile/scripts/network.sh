@@ -18,17 +18,15 @@ planetarian::net::connect-google() {
 }
 
 planetarian::net::in-gfw() {
-  in_gfw=$(planetarian::config get net in_gfw)
-
-  if [[ "$in_gfw" == "yes" ]]; then
+  if planetarian::config net:in_gfw switch test yes; then
     return 0
-  elif [[ "$in_gfw" == "no" ]]; then
+  elif planetarian::config net:in_gfw switch test no; then
     return 1
   elif planetarian::net::connect-google; then
-    planetarian::config set net in_gfw "no"
+    planetarian::config net:in_gfw switch turn no
     return 1
   else
-    planetarian::config set net in_gfw "yes"
+    planetarian::config net:in_gfw switch turn yes
     return 0
   fi
 }

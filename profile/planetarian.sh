@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
-export PLANETARIAN_ROOT="$HOME/.planetarian"
-export PLANETARIAN_HOME="$HOME/.planetarian/profile"
-export PLANETARIAN_CONFIG="$HOME/.planetarian.ini"
+PLANETARIAN_ROOT="$HOME/.planetarian"
+PLANETARIAN_HOME="$HOME/.planetarian/profile"
+# shellcheck disable=SC2034
+PLANETARIAN_BIN="$HOME/.planetarian/bin"
+# shellcheck disable=SC2034
+PLANETARIAN_CONFIG="$HOME/.planetarian.ini"
 
 export LC_ALL=en_US.UTF-8
 
 planetarian::profile::reload() {
-  for script_name in \
-    "env" "helpers" "command" "config-mgmt"; do
+  for file in "$PLANETARIAN_HOME/base"/*.sh; do
     # shellcheck disable=SC1090
-    . "$PLANETARIAN_HOME/base/$script_name.sh"
+    if [ -f "$file" ]; then . "$file"; fi
   done
 
-  for file in "$PLANETARIAN_HOME/scripts"/*; do
+  for file in "$PLANETARIAN_HOME/scripts"/*.sh; do
     # shellcheck disable=SC1090
     if [ -f "$file" ]; then . "$file"; fi
   done

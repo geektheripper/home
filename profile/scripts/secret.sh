@@ -26,17 +26,16 @@ planetarian::secret::init_drive() {
 }
 
 planetarian::secret::init_drive::post() {
-  planetarian::config get secret post_init >/dev/null || return 1
-  for command in $(planetarian::config get secret post_init | sed "s/,/ /g"); do
+  for command in $(planetarian::config secret:post_init set list); do
     $command || return 1
   done
 }
 
 planetarian::secret::init() {
   planetarian::secret::vault::init
-  planetarian::feature_switch secret autoload on
+  planetarian::config secret:autoload switch turn yes
 }
 
-planetarian::feature_switch secret autoload && planetarian::secret::init_drive >/dev/null
+planetarian::config secret:autoload switch test yes && planetarian::secret::init_drive >/dev/null
 
 planetarian::command "secret init" planetarian::secret::init

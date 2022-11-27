@@ -4,7 +4,11 @@ ACME_SH_PATH=$HOME/.acme.sh
 planetarian::acme::install() {
   secret_dir=$(planetarian::secret::init_drive)
 
-  acme_email=$(planetarian::config cread acme email "email for acme: ")
+  acme_email=$(planetarian::config acme:email read)
+  if [ -z "$acme_email" ]; then
+    acme_email=$(planetarian::toolbox tui input -t 'email')
+    planetarian::config acme:email write "$acme_email"
+  fi
 
   mkdir -p "$secret_dir/acme/conf"
   mkdir -p "$secret_dir/acme/certs"
@@ -29,7 +33,7 @@ planetarian::acme::install() {
 
   rm -rf "/tmp/.acme.sh"
 
-  planetarian::config add secret post_init "planetarian::acme::install"
+  planetarian::config secret:post_init set add "planetarian::acme::install"
 }
 
 planetarian::acme::push() {

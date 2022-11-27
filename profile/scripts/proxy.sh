@@ -12,7 +12,7 @@ planetarian::proxy::get-proxy() {
     return 0
   fi
 
-  planetarian::config get proxy url 2>/dev/null
+  planetarian::config proxy:url read 2>/dev/null
 }
 
 planetarian::proxy::get-no-proxy() {
@@ -22,7 +22,7 @@ planetarian::proxy::get-no-proxy() {
     return 0
   fi
 
-  planetarian::config get proxy no-proxy 2>/dev/null || true
+  planetarian::config proxy:no-proxy read 2>/dev/null || true
 }
 
 planetarian::proxy::load-default() {
@@ -33,7 +33,7 @@ planetarian::proxy::load-default() {
 }
 
 planetarian::proxy::set-default() {
-  planetarian::config set proxy url "$1"
+  planetarian::config proxy:url write "$1"
 }
 
 # shellcheck disable=SC2120
@@ -70,16 +70,18 @@ planetarian::proxy::unset() {
   unset NO_PROXY
 }
 
+# add 192.168.1.1/24
+# rm *.github.com
 planetarian::proxy::no-proxy() {
-  planetarian::config "$1" proxy no-proxy "$2"
+  planetarian::config proxy:no-proxy set "$1" "$2"
 }
 
 planetarian::proxy::autoload() {
-  planetarian::feature_switch proxy autoload "$1"
+  planetarian::config proxy:autoload switch turn "$1"
 }
 
 planetarian::proxy::load-default
-planetarian::feature_switch proxy autoload && planetarian::proxy::set
+planetarian::config proxy:autoload switch test yes && planetarian::proxy::set
 
 planetarian::proxy() {
   command="planetarian::proxy::$1"

@@ -32,7 +32,7 @@ var Command = cli.Command{
 				&cli.StringFlag{
 					Name:        "label",
 					Aliases:     []string{"l"},
-					DefaultText: "Input",
+					Value:       "Input",
 					Usage:       "text on the left of input area",
 					Destination: &flagLabel,
 				},

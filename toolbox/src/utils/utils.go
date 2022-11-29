@@ -2,10 +2,15 @@ package utils
 
 import (
 	"bufio"
+	"encoding/json"
+	"fmt"
 	"io/fs"
 	"log"
 	"os"
+	"reflect"
 	"strings"
+
+	"gopkg.in/alessio/shellescape.v1"
 )
 
 func StdinLines() ([]string, error) {
@@ -76,3 +81,52 @@ func TrimJoinLines(elems ...string) string {
 }
 
 var ErrLog *log.Logger = log.New(os.Stderr, "", 0)
+
+func ShellEscape(s interface{}) string {
+	resultType := reflect.ValueOf(s)
+
+	switch resultType.Kind() {
+	case reflect.Map, reflect.Slice:
+		byte, err := json.Marshal(s)
+		if err != nil {
+			panic(err)
+		}
+		return shellescape.Quote(string(byte))
+	default:
+		return shellescape.Quote(fmt.Sprint(s))
+	}
+}
+func ShellEcho(msg any)        { fmt.Printf("echo %s;\n", ShellEscape(msg)) }
+func ShellAssign(k any, v any) { fmt.Printf("%s=%s;\n", ShellEscape(k), ShellEscape(v)) }
+func ShellExport(k any, v any) { fmt.Printf("export %s=%s;\n", ShellEscape(k), ShellEscape(v)) }
+func ShellAssignArray(k any, v []any) {
+	result := []string{}
+	for _, value := range v {
+		result = append(result, ShellEscape(value))
+	}
+	fmt.Printf("%s=(%s);", k, strings.Join(result, " "))
+}
+
+func MustGetEnv(key string) string {
+	result := os.Getenv(key)
+	if result == "" {
+		ErrLog.Fatalf("Error: require environment: %s", key)
+	}
+	return result
+}
+
+func DefaultsEnv(key string, defaultValue string) string {
+	result := os.Getenv(key)
+	if result == "" {
+		return defaultValue
+	}
+	return result
+}
+
+func MustReadFile(name string) string {
+	content, err := os.ReadFile(name)
+	if err != nil {
+		ErrLog.Fatalf("Error: read %s failed, %s", name, err)
+	}
+	return string(content)
+}

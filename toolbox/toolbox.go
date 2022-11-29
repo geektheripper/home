@@ -10,6 +10,7 @@ import (
 	"github.com/geektheripper/planetarian/toolbox/v2/src/editors/text_block"
 	"github.com/geektheripper/planetarian/toolbox/v2/src/json_util"
 	"github.com/geektheripper/planetarian/toolbox/v2/src/tui"
+	"github.com/geektheripper/planetarian/toolbox/v2/src/vault"
 )
 
 func main() {
@@ -29,6 +30,7 @@ func main() {
 		&text_block.Command,
 		&json_util.Command,
 		&tui.Command,
+		&vault.Command,
 	}
 
 	err := app.Run(os.Args)

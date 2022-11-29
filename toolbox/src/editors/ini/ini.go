@@ -98,7 +98,7 @@ toolbox ini -f path/to/file -s section -k key <command> [arguments...]`,
 			Flags: []cli.Flag{
 				&cli.StringFlag{
 					Name:        "default",
-					DefaultText: "",
+					Value:       "",
 					Aliases:     []string{"d"},
 					Usage:       "return this if there is no value",
 					Destination: &defaultValue,

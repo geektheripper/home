@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-planetarian::secret::vault::install() {
-  planetarian::install vault
+planetarian::vault() {
+  VAULT_ROOT_TOKEN=$VAULT_ROOT_TOKEN planetarian::toolbox @vault "$@"
 }
 
-planetarian::secret::vault::clear() {
-  unset VAULT_ADDR
-  unset VAULT_USER
-  rm -f ~/.vault-token
-}
+planetarian::secret::vault::su() { eval "$(planetarian::vault su)"; }
+planetarian::secret::vault::jq() { eval "$(planetarian::vault jq "$@")"; }
+
+planetarian::secret::vault::install() { planetarian::install vault; }
+planetarian::secret::vault::reset() { echo "" >~/.vault-token; }
 
 planetarian::secret::vault::load() {
   VAULT_ADDR=$(planetarian::config secret:vault_addr read 2>/dev/null)
@@ -29,38 +29,20 @@ planetarian::secret::vault::login() {
     return 1
   fi
 
-  vault token revoke -self 2>/dev/null
-  unset VAULT_TOKEN
-  vault login -no-print -method=userpass username="$VAULT_USER"
-  VAULT_TOKEN=$(vault token lookup --format json | jq -r '.data.id')
-  export VAULT_TOKEN
-}
-
-planetarian::secret::vault::su() {
-  echo -n "root token: "
-  read -rs VAULT_TOKEN
-  export VAULT_TOKEN
+  VAULT_TOKEN_FILE="$PLANETARIAN_PRIVATE/secret/vault-token" \
+    VAULT_USER="$VAULT_USER" \
+    planetarian::vault login
 }
 
 planetarian::secret::vault::set_host() {
   planetarian::config secret:vault_addr write "$1"
-  planetarian::secret::vault::clear
+  planetarian::secret::vault::reset
   planetarian::secret::vault::load
 }
 
 planetarian::secret::vault::set_user() {
-  planetarian::secret::vault::clear
+  planetarian::secret::vault::reset
   planetarian::config secret:vault_user write "$1"
-}
-
-planetarian::secret::vault::json() {
-  _json=$(vault kv get --format json "$1")
-  _json_jq() { echo "$_json" | jq -r "$1"; }
-  if [[ "$(_json_jq '.data.data | type')" == "object" ]] && [[ "$(_json_jq '.data.metadata | type')" == "object" ]]; then
-    _json_jq '.data.data'
-  else
-    _json_jq '.data'
-  fi
 }
 
 planetarian::config secret:autoload switch test yes && planetarian::secret::vault::load
@@ -68,6 +50,6 @@ planetarian::config secret:autoload switch test yes && planetarian::secret::vaul
 planetarian::command "vault set-host" planetarian::secret::vault::set_host
 planetarian::command "vault set-user" planetarian::secret::vault::set_user
 planetarian::command "vault login" planetarian::secret::vault::login
+planetarian::command "vault reset" planetarian::secret::vault::reset
 planetarian::command "vault su" planetarian::secret::vault::su
-
-planetarian::command "vault json" planetarian::secret::vault::json
+planetarian::command "vault jq" planetarian::secret::vault::jq

@@ -11,7 +11,7 @@ if [ -z "$PLANETARIAN_PRIVATE" ]; then
 fi
 
 # ensure private dir
-if [ -d $PLANETARIAN_PRIVATE ]; then
+if [ ! -d $PLANETARIAN_PRIVATE ]; then
   (umask 77 && mkdir $PLANETARIAN_PRIVATE)
 fi
 

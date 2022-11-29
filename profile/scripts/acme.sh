@@ -14,12 +14,12 @@ planetarian::acme::install() {
   mkdir -p "$secret_dir/acme/certs"
 
   if [ -d "$HOME/.acme.sh" ]; then
-    cp -r "$HOME/.acme.sh" /tmp/
+    cp -r "$HOME/.acme.sh" "$PLANETARIAN_PRIVATE/"
   else
-    git clone https://github.com/acmesh-official/acme.sh.git "/tmp/.acme.sh"
+    git clone https://github.com/acmesh-official/acme.sh.git "$PLANETARIAN_PRIVATE/.acme.sh"
   fi
 
-  pushd "/tmp/.acme.sh" || return 1
+  pushd "$PLANETARIAN_PRIVATE/.acme.sh" || return 1
 
   ./acme.sh --install \
     --config-home "$secret_dir/acme/conf" \
@@ -31,7 +31,7 @@ planetarian::acme::install() {
 
   popd || return
 
-  rm -rf "/tmp/.acme.sh"
+  rm -rf "$PLANETARIAN_PRIVATE/.acme.sh"
 
   planetarian::config secret:post_init set add "planetarian::acme::install"
 }

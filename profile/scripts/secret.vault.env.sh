@@ -1,28 +1,27 @@
 #!/usr/bin/env bash
-planetarian::secret::vault::env::keys() {
-  planetarian::secret::vault::json "$1" | jq -r 'to_entries | map(.key) | join(" ")'
-}
+# shellcheck disable=SC2181
 
-planetarian::secret::vault::env::pair() {
-  planetarian::secret::vault::json "$1" | jq -r 'to_entries | map(.key + "=" + "'"'"'" + (.value | tostring) +"'"'"'") | join(" ")'
+planetarian::secret::vault::env::keys() {
+  eval "$(planetarian::vault jq -p "$1" 'to_entries | map(.key) | join(" ")')"
 }
 
 planetarian::secret::vault::env::load() {
-  eval "$(planetarian::secret::vault::env::pair "$1")"
+  eval "$(planetarian::vault jq -p "$1" -f assign-map)"
 }
 
 planetarian::secret::vault::env::export() {
-  eval "export $(planetarian::secret::vault::env::pair "$1")"
+  eval "$(planetarian::vault jq -p "$1" -f export-map)"
 }
 
 planetarian::secret::vault::env::unset() {
   keys=$(planetarian::secret::vault::env::keys "$1")
+  if [ "$?" -ne "0" ]; then return 1; fi
   eval "unset $keys"
   eval "export $keys"
 }
 
 planetarian::secret::vault::env::envsubst() {
-  eval "$(planetarian::secret::vault::env::pair "$1") envsubst"
+  eval "$(planetarian::vault jq -p "$1" -f assign-map) envsubst"
 }
 
 planetarian::secret::vault::env() {

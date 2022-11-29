@@ -2,27 +2,37 @@
 planetarian_secret_drive_inited=
 
 planetarian::secret::init_drive() {
-  pltr_secret_base="/run/planetarian/secret"
+  pltr_secret_base="$PLANETARIAN_PRIVATE/secret"
 
   if [[ "$planetarian_secret_drive_inited" == "true" ]]; then
     echo "$pltr_secret_base"
     return 0
   fi
 
-  if df -a | grep "$pltr_secret_base" >/dev/null; then
-    echo "$pltr_secret_base"
-    return 0
+  if [ ! -d "$pltr_secret_base" ]; then
+    (umask 77 && mkdir "$pltr_secret_base")
   fi
 
-  sudo mkdir -p "$pltr_secret_base"
-  sudo mount -t ramfs ramfs "$pltr_secret_base"
-  sudo chown "$UID:$UID" "$pltr_secret_base"
-  sudo chmod go-rwx "$pltr_secret_base"
-  echo "$pltr_secret_base"
+  if planetarian::config secret:avoid_physical_attack switch test yes; then
+
+    if df -a | grep "$pltr_secret_base" >/dev/null; then
+      echo "$pltr_secret_base"
+      return 0
+    fi
+
+    sudo mount -t ramfs ramfs "$pltr_secret_base"
+    sudo chown "$UID:$UID" "$pltr_secret_base"
+    sudo chmod go-rwx "$pltr_secret_base"
+    echo "$pltr_secret_base"
+  fi
+
+  if [ ! -f "$HOME/.vault-token" ]; then
+    ln -s "$PLANETARIAN_PRIVATE/secret/vault-token" "$HOME/.vault-token"
+  fi
 
   planetarian_secret_drive_inited=true
 
-  planetarian::secret::init_drive::post || echo "post init failed"
+  planetarian::secret::init_drive::post || echo "secrret post init failed"
 }
 
 planetarian::secret::init_drive::post() {

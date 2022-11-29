@@ -68,7 +68,7 @@ export      same as above, but export
 array       assign multiple output to specific variable name as array
               export VAR=("hello", "world");
 assign-map  assign every pair key-value as variable, output should be a map
-              Key1=Value1; Key2=Value2;
+              Key1=Value1 Key2=Value2
 export-map  same as above, but export
               export Key1=Value1; export Key2=Value2;
 `,
@@ -95,6 +95,8 @@ export-map  same as above, but export
 					return err
 				}
 
+				shell := utils.ShellExec{}
+
 				queryResults := []any{}
 				appendResult := func(s any) error {
 					if len(queryResults) > 1453 {
@@ -118,11 +120,9 @@ export-map  same as above, but export
 
 					switch formatName {
 					case "assign":
-						utils.ShellAssign(variableName, queryResult)
-						return nil
+						return shell.Assign(variableName, queryResult).PrintScript()
 					case "export":
-						utils.ShellExport(variableName, queryResult)
-						return nil
+						return shell.Export(variableName, queryResult).PrintScript()
 					case "assign-map", "export-map":
 						if resultType.Kind() != reflect.Map {
 							return errors.New("output should be a map (object)")
@@ -133,17 +133,18 @@ export-map  same as above, but export
 						for iter.Next() {
 							key, value := iter.Key(), iter.Value()
 
-							if !lo.Contains(selectedKeysList, utils.ShellEscape(key)) {
+							if len(selectedKeysStr) > 0 && !lo.Contains(selectedKeysList, utils.ShellEscape(key)) {
 								continue
 							}
 
 							if formatName == "assign-map" {
-								utils.ShellAssign(key, value)
+								shell.Assign(key, value)
 							} else {
-								utils.ShellExport(key, value)
+								shell.Export(key, value)
 							}
 						}
-						return nil
+
+						return shell.PrintScript()
 					}
 
 					appendResult(queryResult)
@@ -151,15 +152,14 @@ export-map  same as above, but export
 
 				if formatName == "raw" {
 					for _, v := range queryResults {
-						utils.ShellEcho(v)
+						shell.Echo(v)
 					}
+					return shell.PrintScript()
 				} else if formatName == "array" {
-					utils.ShellAssignArray(variableName, queryResults)
+					return shell.AssignArray(variableName, queryResults).PrintScript()
 				} else {
 					return errors.New(fmt.Sprintf("invalid format: %s", formatName))
 				}
-
-				return nil
 			},
 		},
 	},

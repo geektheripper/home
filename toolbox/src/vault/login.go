@@ -74,8 +74,7 @@ var commandSu = cli.Command{
 
 		token := lo.Must(prompt.Run())
 
-		utils.ShellAssign("VAULT_ROOT_TOKEN", token)
-
-		return nil
+		shell := utils.ShellExec{}
+		return shell.Assign("VAULT_ROOT_TOKEN", token).PrintScript()
 	},
 }

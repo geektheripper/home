@@ -5,6 +5,7 @@ planetarian::vault() {
 }
 
 planetarian::secret::vault::su() { eval "$(planetarian::vault su)"; }
+planetarian::secret::vault::sudo() { VAULT_TOKEN=$VAULT_ROOT_TOKEN "$@" ; }
 planetarian::secret::vault::jq() { eval "$(planetarian::vault jq "$@")"; }
 
 planetarian::secret::vault::install() { planetarian::install vault; }
@@ -52,4 +53,5 @@ planetarian::command "vault set-user" planetarian::secret::vault::set_user
 planetarian::command "vault login" planetarian::secret::vault::login
 planetarian::command "vault reset" planetarian::secret::vault::reset
 planetarian::command "vault su" planetarian::secret::vault::su
+planetarian::command "vault sudo" planetarian::secret::vault::sudo
 planetarian::command "vault jq" planetarian::secret::vault::jq

@@ -2,6 +2,8 @@
 
 # i env aliyun
 
+. $HOME/.planetarian/profile/planetarian.sh
+
 set -e
 
 pushd "$PLANETARIAN_ROOT/toolbox/" || exit 0

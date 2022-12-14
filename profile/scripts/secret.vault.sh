@@ -5,7 +5,7 @@ planetarian::vault() {
 }
 
 planetarian::secret::vault::su() { eval "$(planetarian::vault su)"; }
-planetarian::secret::vault::sudo() { VAULT_TOKEN=$VAULT_ROOT_TOKEN "$@" ; }
+planetarian::secret::vault::sudo() { VAULT_TOKEN=$VAULT_ROOT_TOKEN "$@"; }
 planetarian::secret::vault::jq() { eval "$(planetarian::vault jq "$@")"; }
 
 planetarian::secret::vault::install() { planetarian::install vault; }
@@ -46,6 +46,10 @@ planetarian::secret::vault::set_user() {
   planetarian::config secret:vault_user write "$1"
 }
 
+planetarian::secret::vault::tf() {
+  eval "$(planetarian::vault jq -p "planetarian-kv/$1" -f export-map 'with_entries(.key |= "TF_VAR_\(.)")')"
+}
+
 planetarian::config secret:autoload switch test yes && planetarian::secret::vault::load
 
 planetarian::command "vault set-host" planetarian::secret::vault::set_host
@@ -55,3 +59,4 @@ planetarian::command "vault reset" planetarian::secret::vault::reset
 planetarian::command "vault su" planetarian::secret::vault::su
 planetarian::command "vault sudo" planetarian::secret::vault::sudo
 planetarian::command "vault jq" planetarian::secret::vault::jq
+planetarian::command "vault tf" planetarian::secret::vault::tf

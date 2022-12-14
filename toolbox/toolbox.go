@@ -11,6 +11,7 @@ import (
 	"github.com/geektheripper/planetarian/toolbox/v2/src/json_util"
 	"github.com/geektheripper/planetarian/toolbox/v2/src/random"
 	"github.com/geektheripper/planetarian/toolbox/v2/src/tui"
+	"github.com/geektheripper/planetarian/toolbox/v2/src/utils"
 	"github.com/geektheripper/planetarian/toolbox/v2/src/vault"
 )
 
@@ -34,6 +35,8 @@ func main() {
 		&vault.Command,
 		&random.Command,
 	}
+
+	app.Commands = append(app.Commands, utils.UtilsCommands...)
 
 	err := app.Run(os.Args)
 	if err != nil {

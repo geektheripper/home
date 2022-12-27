@@ -16,7 +16,7 @@ planetarian::command install planetarian::install
 
 planetarian::install::utils::apt::ensure() {
   for pkg in "$@"; do
-    dpkg-query --show --showformat='${db:Status-Status}\n' "$pkg" &>/dev/null ||
+    [ "$(dpkg-query --show --showformat='${db:Status-Status}\n' "$pkg")" = "installed" ] ||
       sudo apt-get install -y "$pkg"
   done
 }

@@ -1,17 +1,12 @@
 #!/usr/bin/env bash
 
-curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+set -e
 
-papt() {
-  if planetarian::net::in-gfw; then
-    planetarian::proxy::set
-    # shellcheck disable=SC2154
-    sudo http_proxy="$http_proxy" https_proxy="$http_proxy" apt-get "$@"
-  else
-    sudo apt-get "$@"
-  fi
-}
+planetarian::install::utils::apt::import-key \
+  hashicorp https://apt.releases.hashicorp.com/gpg
 
-papt update
-papt install -y vault
+planetarian::install::utils::apt::add-repo \
+  hashicorp "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+
+sudo apt-get update
+sudo apt-get install -y vault

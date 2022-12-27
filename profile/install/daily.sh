@@ -18,10 +18,6 @@ sudo apt-get install -y \
 sudo apt-get install -y \
   bzip2 zip unzip p7zip p7zip-full
 
-# utils
-sudo apt-get install -y \
-  gettext
-
 # network about
 sudo apt-get install -y \
   mtr curl wget axel dnsutils net-tools rsync
@@ -31,8 +27,8 @@ sudo apt-get install -y \
   git git-lfs make
 
 # hardware utils
-# sudo apt-get install -y \
-#   ipmitool
+sudo apt-get install -y \
+  ipmitool
 
 # meida
 sudo apt-get install -y \

@@ -8,7 +8,6 @@ planetarian::secret::vault::su() { eval "$(planetarian::vault su)"; }
 planetarian::secret::vault::sudo() { VAULT_TOKEN=$VAULT_ROOT_TOKEN "$@"; }
 planetarian::secret::vault::jq() { eval "$(planetarian::vault jq "$@")"; }
 
-planetarian::secret::vault::install() { planetarian::install vault; }
 planetarian::secret::vault::reset() { echo "" >~/.vault-token; }
 
 planetarian::secret::vault::load() {

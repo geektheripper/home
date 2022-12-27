@@ -42,7 +42,7 @@ planetarian::secret::init_drive::post() {
 }
 
 planetarian::secret::init() {
-  planetarian::secret::vault::install
+  planetarian::install vault
   planetarian::config secret:autoload switch turn yes
 }
 

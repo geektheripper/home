@@ -2,16 +2,16 @@
 
 # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
 
-sudo apt-get update
-sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg
+set -e
 
-curl -sL https://packages.microsoft.com/keys/microsoft.asc |
-  gpg --dearmor |
-  sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg >/dev/null
+planetarian::install::utils::apt::ensure \
+  ca-certificates curl apt-transport-https lsb-release
 
-AZ_REPO=$(lsb_release -cs)
-echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" |
-  sudo tee /etc/apt/sources.list.d/azure-cli.list
+planetarian::install::utils::apt::import-key \
+  microsoft https://packages.microsoft.com/keys/microsoft.asc
+
+planetarian::install::utils::apt::add-repo \
+  azure-cli "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main"
 
 sudo apt-get update
 sudo apt-get install azure-cli

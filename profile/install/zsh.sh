@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 set -e
 
 sudo apt-get install -y zsh
@@ -20,12 +21,13 @@ fi
 sudo usermod --shell /usr/bin/zsh "$(whoami)"
 
 if [ ! -f "$HOME/.zshrc" ]; then
+
   cat >"$HOME/.zshrc" <<'EOF'
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME=""
 DISABLE_UPDATE_PROMPT=true
 DISABLE_AUTO_UPDATE=true
-plugins=(git docker python tmux npm yarn ansible)
+plugins=(git docker python tmux npm yarn)
 
 if [ -f "$ZSH/oh-my-zsh.sh" ]; then
   source "$ZSH/oh-my-zsh.sh"
@@ -39,8 +41,7 @@ prompt pure
 
 EOF
 
-  cat >>"$HOME/.zshrc" <<EOF
-# includes common profile
+  planetarian::toolbox text-block -f "$HOME/.zshrc" -key "planetarian" write <<'EOF'
 if [ -f "$PLANETARIAN_HOME/planetarian.sh" ]; then
   . "$PLANETARIAN_HOME/planetarian.sh"
 fi

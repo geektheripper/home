@@ -2,7 +2,7 @@
 
 set -e
 
-planetarian::install::utils::set-proxy
+planetarian::install::utils::require-proxy
 planetarian::install::utils::cd-tempdir
 
 golang_version=1.18

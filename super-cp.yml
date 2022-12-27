@@ -1,0 +1,18 @@
+environments:
+  default:
+    - source:
+        pattern: linux-files/**/*
+        strip: linux-files/
+      dist:
+        type: "@oss"
+        bucket: co-geektr-planetarian
+        path: /-/linux/
+        region: oss-cn-shanghai
+        accessKeyId: $Ali_Key
+        accessKeySecret: $Ali_Secret
+      rules:
+        - pattern: "**/*"
+          acl: public-read
+          autoMimeType: true
+          headers:
+            "Cache-Control": public, max-age=60

@@ -18,9 +18,9 @@ fetch() {
 
 download() {
   if command -v curl &>/dev/null; then
-    echo curl -s -o "$1" "$2"
+    curl -s -o "$1" "$2"
   elif command -v wget &>/dev/null; then
-    echo wget -q -O "$1" "$2"
+    wget -q -O "$1" "$2"
   else
     echo "At least one of wget and curl must be installed"
     return 1

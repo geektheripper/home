@@ -15,6 +15,11 @@ auto-init-vault() {
 auto-init-proxy() {
   planetarian::proxy::set-default "$(json_pick "$1" '.planetarian.proxy.default_server')"
 
+  IFS=';' read -ra ADDR <<<"$(json_pick "$1" '.planetarian.proxy.no_proxy')"
+  for i in "${ADDR[@]}"; do
+    planetarian::proxy::no-proxy add "$i"
+  done
+
   if [[ "$(json_pick "$1" '.planetarian.proxy.autoload')" == "true" ]]; then
     planetarian::proxy::autoload true
   fi

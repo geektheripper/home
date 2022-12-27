@@ -26,6 +26,9 @@ Environment='HTTP_PROXY=${1}'
 Environment='HTTPS_PROXY=${1}'
 Environment='NO_PROXY=${2}'
 EOF
+
+  sudo systemctl daemon-reload
+  sudo systemctl restart docker
 }
 
 docker-install() {

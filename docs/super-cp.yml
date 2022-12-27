@@ -1,0 +1,37 @@
+# src
+.src-docs: &src.docs
+  pattern: .vitepress/dist/**/*
+  strip: .vitepress/dist/
+
+# dists
+.dist-docs: &dist.docs
+  type: "@oss"
+  bucket: co-geektr-planetarian
+  region: oss-cn-shanghai
+  accessKeyId: $Ali_Key
+  accessKeySecret: $Ali_Secret
+
+# rules
+# make all files public read
+.public: &rule.public
+  pattern: "**/*"
+  acl: public-read
+
+# apply mime type for all files
+.mime: &rule.mime
+  pattern: "**/*"
+  autoMimeType: true
+
+environments:
+  default:
+    - source: *src.docs
+      dist: *dist.docs
+      rules:
+        - *rule.public
+        - *rule.mime
+        - pattern: "*"
+          headers:
+            "Cache-Control": public, max-age=60
+        - pattern: "assets/**/*"
+          headers:
+            "Cache-Control": public, max-age=315360000

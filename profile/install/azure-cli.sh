@@ -2,7 +2,7 @@
 
 # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
 
-set -e
+. "$HOME/.planetarian/profile/planetarian-install.sh"
 
 planetarian::install::utils::apt::ensure \
   ca-certificates curl apt-transport-https lsb-release

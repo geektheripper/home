@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+. "$HOME/.planetarian/profile/planetarian-install.sh"
 
 planetarian::install::utils::apt::import-key \
   hashicorp https://apt.releases.hashicorp.com/gpg

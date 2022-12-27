@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+. "$HOME/.planetarian/profile/planetarian-install.sh"
 
 sudo apt-get install -y zsh
 
@@ -41,10 +41,8 @@ prompt pure
 
 EOF
 
-  planetarian::toolbox text-block -f "$HOME/.zshrc" -key "planetarian" write <<'EOF'
-if [ -f "$PLANETARIAN_HOME/planetarian.sh" ]; then
-  . "$PLANETARIAN_HOME/planetarian.sh"
-fi
+  planetarian::toolbox text-block -k "load profile" -f "$HOME"/.zshrc write <<'EOF'
+if [ -f "$HOME/.profile" ]; then . "$HOME/.profile"; fi
 EOF
 
 fi

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+. "$HOME/.planetarian/profile/planetarian-install.sh"
+
 planetarian::install::utils::cd-tempdir
 planetarian::install::utils::require-proxy
 

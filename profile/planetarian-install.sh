@@ -1,18 +1,6 @@
 #!/usr/bin/env bash
 
-planetarian::install() {
-  if [ "$1" = "-g" ] || [ "$1" = "--global" ]; then
-    local GLOBAL_INSTALL=true
-    shift
-  fi
-
-  local install_script="$PLANETARIAN_HOME/install/$1.sh"
-  shift
-
-  GLOBAL_INSTALL=$GLOBAL_INSTALL bash -i "$install_script" "$@"
-}
-
-planetarian::command install planetarian::install
+. "$HOME/.planetarian/profile/planetarian.sh"
 
 planetarian::install::utils::apt::ensure() {
   for pkg in "$@"; do
@@ -23,8 +11,7 @@ planetarian::install::utils::apt::ensure() {
 
 planetarian::install::utils::apt::import-key() {
   planetarian::install::utils::apt::ensure gnupg2 || exit 1
-  curl -sL "$2" | gpg --dearmor |
-    sudo tee "/etc/apt/trusted.gpg.d/$1.gpg" >/dev/null
+  curl -sL "$2" | gpg --dearmor | sudo tee "/etc/apt/trusted.gpg.d/$1.gpg" >/dev/null
 }
 
 planetarian::install::utils::apt::add-repo() {
@@ -42,6 +29,7 @@ planetarian::install::utils::require-proxy() {
 planetarian::install::utils::cd-tempdir() {
   temp_dir=$(mktemp -d)
   flag=$1
+  # shellcheck disable=SC2317
   clear_temp_dir() {
     [ "$flag" == "debug" ] && return
     rm -r "$temp_dir"
@@ -66,3 +54,5 @@ planetarian::install::utils::place-binary() {
     sudo chmod +x "$HOME/.local/bin/$2"
   fi
 }
+
+set -e

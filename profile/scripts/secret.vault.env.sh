@@ -9,6 +9,13 @@ planetarian::secret::vault::env::load() {
   eval "$(planetarian::vault jq -p "$1" -f assign-map)"
 }
 
+planetarian::secret::vault::env::run-with() {
+  _path=$1
+  shift
+  # shellcheck disable=SC2145
+  eval "$(planetarian::vault jq -p "$_path" -f assign-map) $@"
+}
+
 planetarian::secret::vault::env::export() {
   eval "$(planetarian::vault jq -p "$1" -f export-map)"
 }

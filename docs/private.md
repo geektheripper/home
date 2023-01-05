@@ -17,6 +17,7 @@ run as geektr:
 ```bash
 source <(curl -s https://planetarian.geektr.co/-/linux/pre.sh)
 
+set-proxy http://proxy.geektr.co:3128
 install-planetarian
 auto-init-planetarian https://planetarian.geektr.co/-/private/planetarian.json all
 

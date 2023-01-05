@@ -41,7 +41,7 @@ planetarian::install::utils::cd-tempdir() {
 planetarian::install::utils::github-latest-ver() {
   curl --silent "https://api.github.com/repos/$1/releases/latest" |
     grep '"tag_name":' |
-    sed -E 's/.*"([^"]+)".*/\1/'
+    sed -E 's/.*"v?([^"]+)".*/\1/'
 }
 
 planetarian::install::utils::place-binary() {

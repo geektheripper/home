@@ -36,6 +36,14 @@ Provide the required parameters for initialization with a json on a url: [Auto C
 auto-init-system <url>
 ```
 
+5. Refresh system
+
+update all apt stuff and remove all apt garbage
+
+```bash
+refresh-system
+```
+
 ## Install
 
 ```bash

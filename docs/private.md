@@ -19,6 +19,8 @@ source <(curl -s https://planetarian.geektr.co/-/linux/pre.sh)
 
 install-planetarian
 auto-init-planetarian https://planetarian.geektr.co/-/private/planetarian.json all
+
+refresh-system
 ```
 
 ## Install Docker

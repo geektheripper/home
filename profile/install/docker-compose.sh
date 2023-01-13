@@ -6,7 +6,14 @@ planetarian::install::utils::require-proxy
 
 version=$(planetarian::install::utils::github-latest-ver docker/compose)
 
-DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
-mkdir -p "$DOCKER_CONFIG/cli-plugins"
-curl -SL "https://github.com/docker/compose/releases/download/$version/docker-compose-linux-x86_64" -o "$DOCKER_CONFIG/cli-plugins/docker-compose"
-chmod +x "$DOCKER_CONFIG/cli-plugins/docker-compose"
+if [ -z "$DOCKER_CONFIG" ]; then
+  if [ "$GLOBAL_INSTALL" = "true" ]; then
+    DOCKER_CONFIG=/usr/local/lib/docker
+  else
+    DOCKER_CONFIG=$HOME/.docker
+  fi
+fi
+
+echo mkdir -p "$DOCKER_CONFIG/cli-plugins"
+echo curl -SL "https://github.com/docker/compose/releases/download/$version/docker-compose-linux-x86_64" -o "$DOCKER_CONFIG/cli-plugins/docker-compose"
+echo chmod +x "$DOCKER_CONFIG/cli-plugins/docker-compose"

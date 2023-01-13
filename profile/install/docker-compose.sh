@@ -14,6 +14,6 @@ if [ -z "$DOCKER_CONFIG" ]; then
   fi
 fi
 
-echo mkdir -p "$DOCKER_CONFIG/cli-plugins"
-echo curl -SL "https://github.com/docker/compose/releases/download/$version/docker-compose-linux-x86_64" -o "$DOCKER_CONFIG/cli-plugins/docker-compose"
-echo chmod +x "$DOCKER_CONFIG/cli-plugins/docker-compose"
+mkdir -p "$DOCKER_CONFIG/cli-plugins"
+curl -SL "https://github.com/docker/compose/releases/download/$version/docker-compose-linux-x86_64" -o "$DOCKER_CONFIG/cli-plugins/docker-compose"
+chmod +x "$DOCKER_CONFIG/cli-plugins/docker-compose"

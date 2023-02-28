@@ -5,7 +5,7 @@
 planetarian::install::utils::require-proxy
 planetarian::install::utils::cd-tempdir
 
-golang_version=1.18
+golang_version=${1:-1.18}
 
 go_dl_url="https://go.dev$(wget -qO- https://go.dev/dl | grep -oP '/dl\/go([0-9\.]+)\.linux-amd64\.tar\.gz' | grep "$golang_version" | head -n 1)"
 

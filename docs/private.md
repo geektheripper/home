@@ -34,6 +34,18 @@ docker-set-proxy $(planetarian::proxy::get-proxy) $(planetarian::proxy::get-no-p
 # docker-set-proxy 'http://proxy.geektr.co:3128' '127.0.0.0/8,10.0.0.0/8,localhost,*.aliyuncs.com,*.geektr.co'
 ```
 
+## Intall K3S
+
+```bash
+source <(curl -s https://planetarian.geektr.co/-/linux/pre.sh)
+
+k3s-install \
+  --node-external-ip 0.0.0.0 \
+  --tls-san domain.geektr.co
+
+k3s-set-proxy 'http://proxy.geektr.co:3128' '127.0.0.0/8,10.0.0.0/8,localhost,*.aliyuncs.com,*.geektr.co'
+```
+
 ## Update Config
 
 ```bash

@@ -39,9 +39,12 @@ docker-set-proxy $(planetarian::proxy::get-proxy) $(planetarian::proxy::get-no-p
 ```bash
 source <(curl -s https://planetarian.geektr.co/-/linux/pre.sh)
 
+# https://docs.k3s.io/cli/server
 k3s-install \
+  --write-kubeconfig-mode 0644 \
   --node-external-ip 0.0.0.0 \
-  --tls-san domain.geektr.co
+  --tls-san domain.geektr.co \
+  --kube-apiserver-arg service-node-port-range=1-65535
 
 k3s-set-proxy 'http://proxy.geektr.co:3128' '127.0.0.0/8,10.0.0.0/8,localhost,*.aliyuncs.com,*.geektr.co'
 ```

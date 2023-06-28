@@ -55,4 +55,17 @@ planetarian::install::utils::place-binary() {
   fi
 }
 
+planetarian::install::utils::help-msg() {
+  match=false
+
+  while [ $# -gt 0 ]; do
+    if [[ "$1" == *"--help"* ]]; then
+      match=true
+      cat -
+      return
+    fi
+    shift
+  done
+}
+
 set -e

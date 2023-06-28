@@ -22,6 +22,7 @@ planetarian::kubeconfig::load() {
 
     eval "$(planetarian::vault jq -p planetarian-kv/k8s/"$cluster"/"$namespace" -sk kubeconfig -f assign-map)"
     echo "$kubeconfig">"$kubeconfig_file"
+    chmod 600 "$kubeconfig_file"
     unset kubeconfig
 
     export KUBECONFIG=$kubeconfig_file

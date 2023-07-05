@@ -13,6 +13,7 @@ import (
 	"github.com/geektheripper/planetarian/toolbox/v2/src/tui"
 	"github.com/geektheripper/planetarian/toolbox/v2/src/utils"
 	"github.com/geektheripper/planetarian/toolbox/v2/src/vault"
+	"github.com/geektheripper/planetarian/toolbox/v2/src/veracrypt"
 )
 
 func main() {
@@ -34,10 +35,12 @@ func main() {
 		&tui.Command,
 		&vault.Command,
 		&random.Command,
+		&veracrypt.Command,
 	}
 
 	app.Commands = append(app.Commands, utils.UtilsCommands...)
 
+	log.SetFlags(0)
 	err := app.Run(os.Args)
 	if err != nil {
 		log.Fatal(err)

@@ -47,6 +47,7 @@ require (
 	github.com/mitchellh/go-testing-interface v1.0.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.0 // indirect
+	github.com/moby/sys/mountinfo v0.6.2 // indirect
 	github.com/oklog/run v1.0.0 // indirect
 	github.com/pierrec/lz4 v2.5.2+incompatible // indirect
 	github.com/robertkrimen/otto v0.0.0-20221125184032-e311ec43055e // indirect
@@ -59,7 +60,7 @@ require (
 	golang.org/x/crypto v0.0.0-20211215153901-e495a2d5b3d3 // indirect
 	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17 // indirect
 	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2 // indirect
-	golang.org/x/sys v0.0.0-20220829200755-d48e67d00261 // indirect
+	golang.org/x/sys v0.9.0 // indirect
 	golang.org/x/text v0.3.8 // indirect
 	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1 // indirect
 	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013 // indirect

@@ -12,14 +12,17 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+var ClearRunes = []rune("abdefghijmnprtyABDEFGHIJLMNPQRTY234678")
+
 var allSpecialGenerators = mapset.NewSet("hrrs", "md5", "uuid")
 var allCaseTransformers = mapset.NewSet("lower", "upper")
-var allCharsetNames = mapset.NewSet("hex", "alpha", "number", "safe-ascii")
+var allCharsetNames = mapset.NewSet("hex", "alpha", "number", "safe-ascii", "clear")
 var charsetRuneMap = map[string][]rune{
 	"hex":        []rune("0123456789abcdef"),
 	"alpha":      []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"),
 	"number":     []rune("0123456789"),
 	"safe-ascii": []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#%^&()_+-={}[];,."),
+	"clear":      ClearRunes,
 }
 
 var Command = cli.Command{

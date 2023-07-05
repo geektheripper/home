@@ -24,4 +24,16 @@ var UtilsCommands = []*cli.Command{
 			return nil
 		},
 	},
+	{
+		Name:  "proj-dir",
+		Usage: "find root dir of current project",
+		Action: func(ctx *cli.Context) error {
+			dir, err := FindProjectRootDir()
+			if err != nil {
+				return err
+			}
+			fmt.Printf("%s", dir)
+			return nil
+		},
+	},
 }

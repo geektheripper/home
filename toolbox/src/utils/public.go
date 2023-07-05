@@ -2,10 +2,16 @@ package utils
 
 import (
 	"bufio"
+	"errors"
 	"io/fs"
 	"log"
 	"os"
+	"path"
+	"regexp"
 	"strings"
+
+	"github.com/go-playground/validator/v10"
+	"github.com/manifoldco/promptui"
 )
 
 func StdinLines() ([]string, error) {
@@ -99,4 +105,61 @@ func MustReadFile(name string) string {
 		ErrLog.Fatalf("Error: read %s failed, %s", name, err)
 	}
 	return string(content)
+}
+
+func ReadInput(label string, inputType string, defaultValue string, isSecret bool) string {
+	var vldt *validator.Validate
+	var re *regexp.Regexp
+
+	if inputType != "" {
+		vldt = validator.New()
+		re, _ = regexp.Compile("^Key: '' Error:Field validation for '' failed on the '(.+)?' tag$")
+	}
+
+	validate := func(s string) error {
+		err := vldt.Var(s, inputType)
+		if err == nil {
+			return nil
+		}
+		tagName := re.FindSubmatch([]byte(err.Error()))
+		return errors.New("input mismatch '" + string(tagName[1]) + "' tag")
+	}
+
+	prompt := promptui.Prompt{
+		Validate: validate,
+		Label:    label,
+		Stdout:   os.Stderr,
+		Default:  defaultValue,
+	}
+
+	if isSecret {
+		prompt.Mask = '*'
+		prompt.HideEntered = true
+	}
+
+	result, err := prompt.Run()
+
+	if err != nil {
+		ErrLog.Fatalf("Prompt failed %v\n", err)
+		return ""
+	}
+
+	return result
+}
+
+func FindProjectRootDir() (string, error) {
+	dir, err := os.Getwd()
+	if err != nil {
+		return "", err
+	}
+
+	for {
+		if _, err := os.Stat(path.Join(dir, ".git")); err == nil {
+			return dir, nil
+		}
+		dir = dir[:strings.LastIndex(dir, "/")]
+		if dir == "" {
+			return "", errors.New("not found .git")
+		}
+	}
 }

@@ -7,3 +7,5 @@ pushd docs
 yarn build
 
 super-cp
+
+popd

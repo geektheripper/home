@@ -3,7 +3,7 @@
 # TODO:detect in gfw or not
 
 k3s-set-proxy() {
-  cat >>/etc/systemd/system/k3s.service.env <<EOF
+  sudo tee /etc/systemd/system/k3s.service.env <<EOF
 CONTAINERD_HTTP_PROXY='${1}'
 CONTAINERD_HTTPS_PROXY='${1}'
 CONTAINERD_NO_PROXY='${2}'

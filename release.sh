@@ -9,7 +9,7 @@ trap "rm -r linux-files" EXIT
 # Build pre.sh
 echo "#!/usr/bin/env bash" >linux-files/pre.sh
 
-append-pre() { cat pre/$1 | grep -v '#!/usr/bin/env bash' >>linux-files/pre.sh; }
+append-pre() { cat pre/linux/$1 | grep -v '#!/usr/bin/env bash' >>linux-files/pre.sh; }
 
 append-pre "base/*"
 append-pre "cmd/*"

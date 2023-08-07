@@ -1,3 +1,6 @@
 profile/local
 bin
 linux-files
+windows-files
+pre/windows/evil
+playground

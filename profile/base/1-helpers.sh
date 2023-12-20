@@ -20,3 +20,28 @@ planetarian::safe_prepend() {
     export PATH="$1:$PATH"
   fi
 }
+
+planetarian::edit() {
+  if ! [ -z "$EDITOR" ]; then
+    "$EDITOR" "$@"
+    return
+  fi
+
+  if [ "$TERM_PROGRAM" = "vscode" ]; then
+    code "$@"
+    return
+  fi
+
+  if command -v vim &>/dev/null; then
+    EDITOR="vim"
+  elif command -v nano &>/dev/null; then
+    EDITOR="nano"
+  elif command -v vi &>/dev/null; then
+    EDITOR="vi"
+  else
+    echo "no editor found"
+    return 1
+  fi
+
+  "$EDITOR" "$@"
+}

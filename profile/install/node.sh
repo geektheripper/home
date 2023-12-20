@@ -50,7 +50,7 @@ if ! [ -z "$NODE_MAJOR" ]; then
 
   sudo apt-get update
   sudo apt-get install -y nodejs
-  echo node@$(node --version) installed
+  echo "node@$(node --version) installed"
 fi
 
 node_check() {
@@ -59,7 +59,7 @@ node_check() {
     exit 1
   fi
 
-  if ! [ $(echo -e "$(node --version)\nv16.17" | sort -V | head -n1) = "v16.17" ]; then
+  if ! [ "$(echo -e "$(node --version)\nv16.17" | sort -V | head -n1)" = "v16.17" ]; then
     echo "node version under 16.17 is not supported"
     exit 1
   fi
@@ -68,13 +68,13 @@ node_check() {
 if ! [ -z "$YARN_VERSION" ]; then
   if [ "$YARN_VERSION" = "yarn" ]; then YARN_VERSION="yarn@stable"; fi
   node_check
-  corepack prepare $YARN_VERSION --activate
-  echo yarn@$(yarn --version) installed
+  corepack prepare "$YARN_VERSION" --activate
+  echo "yarn@$(yarn --version) installed"
 fi
 
 if ! [ -z "$PNPM_VERSION" ]; then
   if [ "$PNPM_VERSION" = "pnpm" ]; then PNPM_VERSION="pnpm@latest"; fi
   node_check
-  corepack prepare $PNPM_VERSION --activate
-  echo pnpm@$(pnpm --version) installed
+  corepack prepare "$PNPM_VERSION" --activate
+  echo "pnpm@$(pnpm --version) installed"
 fi

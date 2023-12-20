@@ -20,6 +20,12 @@ planetarian::install::utils::apt::add-repo() {
   uniq "$apt_src_file" | sudo tee "$apt_src_file" >/dev/null
 }
 
+planetarian::install::utils::apt::set-repo() {
+  local apt_src_file="/etc/apt/sources.list.d/$1.list"
+  echo "$2" | sudo tee "$apt_src_file" >/dev/null
+  uniq "$apt_src_file" | sudo tee "$apt_src_file" >/dev/null
+}
+
 planetarian::install::utils::require-proxy() {
   if planetarian::net::in-gfw; then
     planetarian::proxy::set
@@ -56,13 +62,11 @@ planetarian::install::utils::place-binary() {
 }
 
 planetarian::install::utils::help-msg() {
-  match=false
 
   while [ $# -gt 0 ]; do
     if [[ "$1" == *"--help"* ]]; then
-      match=true
       cat -
-      return
+      exit
     fi
     shift
   done

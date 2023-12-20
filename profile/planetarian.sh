@@ -2,6 +2,7 @@
 # shellcheck disable=SC2034,SC1090
 
 # determine private dir
+# todo: rename it to PLANETARIAN_RUNTIME_DIR, move code to base/0-env.sh
 if [ -z "$PLANETARIAN_PRIVATE" ]; then
   if which systemd &>/dev/null; then
     PLANETARIAN_PRIVATE="/run/user/$UID/planetarian"

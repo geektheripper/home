@@ -2,8 +2,10 @@ package tui
 
 import (
 	"os"
+	"strings"
 
 	"github.com/geektheripper/planetarian/toolbox/v2/src/utils"
+	"github.com/samber/lo"
 	"github.com/urfave/cli/v2"
 )
 
@@ -47,6 +49,35 @@ cidr, cidrv4, cidrv6, datauri, fqdn, hostname, hostname_port, hostname_rfc1123, 
 					cCtx.String("type"),
 					cCtx.Bool("secret"),
 				)))
+				return nil
+			},
+		},
+		{
+			Name: "select",
+			Flags: []cli.Flag{
+				&cli.StringFlag{
+					Name:    "prompt",
+					Aliases: []string{"l"},
+					Value:   "Select",
+					Usage:   "text on the left of select area",
+				},
+				&cli.StringFlag{
+					Name:    "list",
+					Aliases: []string{"i"},
+					Usage:   "list to select, split by delimiter",
+				},
+				&cli.StringFlag{
+					Name:    "delimiter",
+					Aliases: []string{"d"},
+					Value:   ",",
+					Usage:   "delimiter of list",
+				},
+			},
+			Usage: "prompt and select one item",
+			Action: func(cCtx *cli.Context) error {
+				list := strings.Split(cCtx.String("list"), cCtx.String("delimiter"))
+				list = lo.Filter(list, func(input string, _ int) bool { return input != "" })
+				os.Stdout.Write([]byte(utils.ReadSelect(cCtx.String("prompt"), list)))
 				return nil
 			},
 		},

@@ -147,6 +147,23 @@ func ReadInput(label string, inputType string, defaultValue string, isSecret boo
 	return result
 }
 
+func ReadSelect(label string, items []string) string {
+	prompt := promptui.Select{
+		Label:  label,
+		Items:  items,
+		Stdout: os.Stderr,
+	}
+
+	_, result, err := prompt.Run()
+
+	if err != nil {
+		ErrLog.Fatalf("Prompt failed %v\n", err)
+		return ""
+	}
+
+	return result
+}
+
 func FindProjectRootDir() (string, error) {
 	dir, err := os.Getwd()
 	if err != nil {

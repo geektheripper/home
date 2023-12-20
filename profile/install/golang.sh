@@ -10,7 +10,7 @@ EOF
 planetarian::install::utils::require-proxy
 planetarian::install::utils::cd-tempdir
 
-golang_version=${1:-1.19}
+golang_version=${1:-1.20}
 
 go_dl_url="https://go.dev$(wget -qO- https://go.dev/dl | grep -oP '/dl\/go([0-9\.]+)\.linux-amd64\.tar\.gz' | grep "$golang_version" | head -n 1)"
 
@@ -19,13 +19,13 @@ sudo rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf go.tar.gz
 
 export PATH="/usr/local/go/bin:$PATH"
-export GOPATH=/usr/local/go/src
 
-planetarian::toolbox text-block -f "$HOME/.profile" -key "golang" write <<'EOF'
+planetarian::toolbox text-block -f "$HOME/.profile" -key "golang" write <<EOF
 if [ -d /usr/local/go/bin ] ; then
-    export PATH="/usr/local/go/bin:$PATH"
+    export PATH="/usr/local/go/bin:\$PATH"
 fi
-if [ -d /usr/local/go/src ] ; then
-    export $GOPATH=/usr/local/go/src
+
+if command -v go &> /dev/null ; then
+    export PATH="\$(go env GOPATH)/bin:\$PATH"
 fi
 EOF

@@ -68,6 +68,7 @@ node_check() {
 if ! [ -z "$YARN_VERSION" ]; then
   if [ "$YARN_VERSION" = "yarn" ]; then YARN_VERSION="yarn@stable"; fi
   node_check
+  corepack enable
   corepack prepare "$YARN_VERSION" --activate
   echo "yarn@$(yarn --version) installed"
 fi
@@ -75,6 +76,7 @@ fi
 if ! [ -z "$PNPM_VERSION" ]; then
   if [ "$PNPM_VERSION" = "pnpm" ]; then PNPM_VERSION="pnpm@latest"; fi
   node_check
+  corepack enable
   corepack prepare "$PNPM_VERSION" --activate
   echo "pnpm@$(pnpm --version) installed"
 fi
